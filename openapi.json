@@ -1,28 +1,24 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "TimeTracker API",
-    "description": "API for TimeTracker application with Zapier integration support",
+    "title": "Timetracker API",
+    "description": "API for Timetracker application with Zapier integration support",
     "version": "1.0.0",
     "contact": {
-      "name": "TimeTracker API Support"
+      "name": "Timetracker API Support"
     }
   },
   "servers": [
     {
-      "url": "https://api.timetracker.com",
+      "url": "https://app.timetracker.in",
       "description": "Production server"
-    },
-    {
-      "url": "http://localhost:3000",
-      "description": "Development server"
     }
   ],
   "paths": {
     "/api/health": {
       "get": {
         "summary": "Health Check",
-        "description": "Check the health status of the API and database connectivity",
+        "description": "The health check endpoint provides real-time status information about the TimeTracker API service and its database connectivity. Use this endpoint to monitor system health, verify service availability, and diagnose connection issues.",
         "tags": ["Health"],
         "responses": {
           "200": {
@@ -84,80 +80,14 @@
         }
       }
     },
-    "/api/billing/invoices/{invoiceId}/download": {
-      "get": {
-        "summary": "Download Invoice",
-        "description": "Download an invoice by its ID",
-        "tags": ["Billing"],
-        "parameters": [
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "description": "Unique identifier of the invoice",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "302": {
-            "description": "Redirect to download URL",
-            "headers": {
-              "Location": {
-                "description": "URL to download the invoice",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request - Invoice ID is required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "Invoice ID is required"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/integrations/zapier/auth": {
       "get": {
         "summary": "Zapier Authentication",
-        "description": "Validate Zapier API key and return user information",
+        "description": "Validate Zapier Bearer token and return user information",
         "tags": ["Zapier Integration"],
         "security": [
           {
-            "ApiKeyAuth": []
+            "BearerAuth": []
           }
         ],
         "responses": {
@@ -242,7 +172,7 @@
         "tags": ["Zapier Integration", "Clients"],
         "security": [
           {
-            "ApiKeyAuth": []
+            "BearerAuth": []
           }
         ],
         "parameters": [
@@ -486,7 +416,7 @@
         "tags": ["Zapier Integration", "Clients"],
         "security": [
           {
-            "ApiKeyAuth": []
+            "BearerAuth": []
           }
         ],
         "requestBody": {
@@ -656,7 +586,7 @@
         "tags": ["Zapier Integration", "Tags"],
         "security": [
           {
-            "ApiKeyAuth": []
+            "BearerAuth": []
           }
         ],
         "parameters": [
@@ -725,7 +655,7 @@
         "tags": ["Zapier Integration", "Tags"],
         "security": [
           {
-            "ApiKeyAuth": []
+            "BearerAuth": []
           }
         ],
         "requestBody": {
@@ -903,7 +833,7 @@
         "tags": ["Zapier Integration", "Webhooks"],
         "security": [
           {
-            "ApiKeyAuth": []
+            "BearerAuth": []
           }
         ],
         "requestBody": {
@@ -1012,12 +942,12 @@
         "type": "apiKey",
         "in": "header",
         "name": "X-API-Key",
-        "description": "API key for Zapier integration authentication"
+        "description": "API key for general API authentication (not used by Zapier)"
       },
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "Bearer token for user authentication"
+        "description": "Bearer token for Zapier integration and user authentication"
       }
     },
     "schemas": {

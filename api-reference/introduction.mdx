@@ -1,31 +1,120 @@
 ---
 title: "Introduction"
-description: "By using the Timetracker API, you can seamlessly integrate Timetracker with your own add-ons, sync data between Timetracker and other tools, and even publish custom extensions on our marketplace. Whether your goal is to automate time tracking, build advanced custom reports, or create unique integrations, our API gives you the flexibility and power you need. If you have any questions or run into issues while working with the API, feel free to reach out to our support team."
+description: "Learn how to integrate with Timetracker using our REST API to build custom add-ons, sync data, and create powerful integrations."
 ---
 
+## Overview
+
+The **Timetracker API** is a RESTful interface that provides programmatic access to your time tracking data and workspace management features. It offers predictable URLs to access resources and uses standard HTTP methods to receive commands and return responses, making it easy to integrate with various environments—from command-line tools to web applications and mobile apps.
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  The Timetracker API is currently in **BETA**. While we strive to maintain backward compatibility, some API endpoints may be adjusted in future releases. We'll communicate any breaking changes well in advance and provide migration guides when necessary.
 </Note>
+
+## API Characteristics
+
+- **RESTful Design**: Follows REST principles with intuitive resource-based URLs
+- **JSON Format**: Accepts and returns JSON content exclusively
+- **UTF-8 Encoding**: Supports UTF-8 character encoding for all requests and responses
+- **HTTP Standards**: Leverages built-in HTTP features for authentication, status codes, and headers
+
+## Getting Started
+
+To begin using the Timetracker API, you'll need:
+
+1. **API Key**: Obtain your personal API key from your Timetracker account settings
+2. **Base URL**: All API requests should be made to `https://api.timetracker.in/v1`
+3. **Authentication**: Include your API key in every request header
+
+<Card title="Need help?" icon="help" href="/support">
+  For questions, feedback, or technical issues, contact our support team through your Timetracker account or email us at support@timetracker.app
+</Card>
 
 ## Authentication
 
-To use the **Timetracker API**, every request must include an authentication header Use `X-Api-Key` with your personal API key
+To use the **Timetracker API**, every request must include an authentication header. Use `X-Api-Key` with your personal API key.
 
-```bash
-curl -X GET "https://api.timetracker.app/v1/workspaces" \   -H "Content-Type: application/json" \   -H "X-Api-Key: YOUR_API_KEY_HERE"
+<RequestExample>
+```bash cURL
+curl -X GET "https://api.timetracker.in/v1/workspaces" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: YOUR_API_KEY_HERE"
 ```
+</RequestExample>
+
+<Warning>
+  Keep your API key secure and never expose it in client-side code or public repositories. Treat it like a password.
+</Warning>
+
+## API Versioning
+
+The Timetracker API uses semantic versioning. You can specify a specific API version using the `X-Accept-Version` request header. If no version is specified, you'll automatically use the latest stable version.
+
+<RequestExample>
+```bash cURL
+curl -X GET "https://api.timetracker.in/v1/workspaces" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: YOUR_API_KEY_HERE" \
+  -H "X-Accept-Version: 1.0"
+```
+</RequestExample>
+
+## Rate Limiting
+
+To ensure fair usage and maintain API performance, we implement rate limiting:
+
+- **Standard Limit**: 100 requests per minute per API key
+- **Burst Limit**: Up to 10 requests per second for short periods
+- **Response**: Exceeding limits returns HTTP 429 (Too Many Requests)
+- **Retry-After**: Response headers indicate when you can resume making requests
+
+<Info>
+  If you need to perform bulk operations or have high-volume requirements, please contact our support team. We may be able to provide alternative solutions or adjust rate limits for your use case.
+</Info>
 
 ## Webhooks
 
-**Webhooks** help keep your add-on in sync with the latest activity inside **Timetracker**. With Timetracker’s webhooks, you can receive real-time notifications whenever key events occur—such as when a user starts a timer, stops tracking, or deletes a time entry.
+**Webhooks** help keep your add-on in sync with the latest activity inside **Timetracker**. With Timetracker's webhooks, you can receive real-time notifications whenever key events occur—such as when a user starts a timer, stops tracking, or deletes a time entry.
 
 This means your integrations can react instantly to changes, without needing to constantly poll the API.
 
-``` expandable
-"security": [
-  {
-    "bearerAuth": []
+<Card title="Webhook Setup" icon="webhook" href="/webhooks">
+  Learn how to configure webhooks and handle incoming notifications in your application.
+</Card>
+
+## Error Handling
+
+The API returns appropriate HTTP status codes and detailed error messages in JSON format. Common status codes include:
+
+- **200**: Success
+- **400**: Bad Request (invalid parameters)
+- **401**: Unauthorized (invalid or missing API key)
+- **403**: Forbidden (insufficient permissions)
+- **404**: Not Found (resource doesn't exist)
+- **429**: Too Many Requests (rate limit exceeded)
+- **500**: Internal Server Error
+
+<AccordionGroup>
+<Accordion title="Error Response Format">
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid parameter value",
+    "details": {
+      "field": "start_time",
+      "issue": "Must be a valid ISO 8601 timestamp"
+    }
   }
-]
+}
 ```
+</Accordion>
+
+<Accordion title="Common Error Codes">
+- `INVALID_API_KEY`: API key is invalid or expired
+- `RATE_LIMIT_EXCEEDED`: Too many requests in time period
+- `RESOURCE_NOT_FOUND`: Requested resource doesn't exist
+- `PERMISSION_DENIED`: Insufficient permissions for operation
+- `VALIDATION_ERROR`: Request parameters are invalid
+</Accordion>
+</AccordionGroup>

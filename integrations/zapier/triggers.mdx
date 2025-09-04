@@ -1,0 +1,290 @@
+---
+title: "Zapier Triggers"
+description: "Learn about all available triggers in Timetracker that can automatically start your Zaps when specific events occur"
+---
+
+## Overview
+
+Timetracker provides five powerful triggers that automatically activate your Zaps when specific events happen in your account. These triggers use webhooks to deliver real-time data to Zapier, enabling instant automation of your workflows.
+
+<Info>
+All triggers are webhook-based, meaning they fire immediately when events occur in Timetracker. This provides real-time automation without polling delays.
+</Info>
+
+---
+
+## Available Triggers
+
+### 1. New Client
+
+**When it triggers**: Fires whenever a new client is created in your Timetracker account.
+
+**Use cases**:
+- **CRM Integration**: Automatically add new clients to your CRM system (Salesforce, HubSpot, Pipedrive)
+- **Client Onboarding**: Send welcome emails and onboarding materials to new clients
+- **Document Management**: Create client folders in Google Drive, Dropbox, or SharePoint
+- **Marketing Automation**: Add clients to mailing lists, newsletters, or marketing campaigns
+- **Team Notifications**: Alert your team when new clients are added
+- **Accounting Setup**: Create client records in QuickBooks, Xero, or FreshBooks
+
+**Data included**:
+- Client name and contact information
+- Company details and industry
+- Creation timestamp
+- Client ID for reference
+- Account manager assignment
+
+---
+
+### 2. New Project
+
+**When it triggers**: Activates when a new project is created in Timetracker.
+
+**Use cases**:
+- **Project Management**: Create project boards in Asana, Trello, Monday.com, or ClickUp
+- **File Organization**: Set up project folders in cloud storage with proper naming conventions
+- **Team Communication**: Send project announcements to Slack, Microsoft Teams, or Discord
+- **Resource Planning**: Allocate team members and resources in project management tools
+- **Documentation**: Generate project briefs, contracts, or project plans automatically
+- **Client Updates**: Notify clients when their projects are initiated
+
+**Data included**:
+- Project name and description
+- Client association and project type
+- Project settings and preferences
+- Creation date and project ID
+- Project manager and team assignments
+
+---
+
+### 3. New Task
+
+**When it triggers**: Fires when a new task is added to any project in Timetracker.
+
+**Use cases**:
+- **Task Management**: Create task cards in project management tools with proper categorization
+- **Team Assignment**: Automatically assign tasks to team members based on workload
+- **Progress Tracking**: Log task creation in spreadsheets or project tracking systems
+- **Workflow Automation**: Trigger approval processes or quality checks
+- **Time Estimation**: Set up time tracking for new tasks automatically
+- **Priority Management**: Categorize tasks by priority and urgency levels
+
+**Data included**:
+- Task name and detailed description
+- Associated project and task category
+- Priority level and due dates
+- Task status and assignee information
+- Estimated vs. actual time requirements
+
+---
+
+### 4. Manual Time Entry
+
+**When it triggers**: Activates when someone manually logs time in Timetracker.
+
+**Use cases**:
+- **Accounting Integration**: Export time data to accounting software for billing and invoicing
+- **Project Reporting**: Update project progress reports and milestone tracking
+- **Team Monitoring**: Send notifications about manual time entries to managers
+- **Data Synchronization**: Log activities in external systems for compliance
+- **Client Billing**: Automatically generate invoices based on manual time entries
+- **Performance Analytics**: Track team productivity and time allocation patterns
+
+**Data included**:
+- Time entry description and notes
+- Duration and date information
+- Associated project and task details
+- User who created the entry
+- Billable status and rate information
+
+---
+
+### 5. Timer Started
+
+**When it triggers**: Fires the moment someone starts a timer in Timetracker.
+
+**Use cases**:
+- **Status Updates**: Automatically update your status in communication tools (Slack, Teams)
+- **Focus Mode**: Trigger focus mode in productivity apps or time management tools
+- **Team Awareness**: Notify team members when work sessions begin
+- **Work Session Tracking**: Log the start of work sessions for analytics
+- **Client Communication**: Update project status when work begins
+- **Break Reminders**: Set up break reminders and productivity tracking
+
+**Data included**:
+- Timer description and project association
+- Start timestamp and user information
+- Project and task details
+- Timer ID for tracking purposes
+- Work session context
+
+---
+
+### 6. Timer Stopped
+
+**When it triggers**: Activates when a timer is stopped in Timetracker.
+
+**Use cases**:
+- **Work Completion**: Send notifications when work sessions are completed
+- **Time Logging**: Automatically log completed work sessions to external systems
+- **Project Updates**: Update project progress and milestone completion
+- **Break Management**: Trigger break timers or wrap-up workflows
+- **Performance Tracking**: Calculate productivity metrics and time utilization
+- **Client Reporting**: Generate work summaries for client updates
+
+**Data included**:
+- Timer description and project details
+- Start and stop timestamps
+- Total duration and billable time
+- User who stopped the timer
+- Work session summary and notes
+
+---
+
+## Setting Up Triggers
+
+### Step 1: Choose Your Trigger
+
+1. In Zapier, create a new Zap
+2. Search for **Timetracker** as the trigger app
+3. Select the specific trigger you want to use
+4. Choose your Timetracker account
+
+### Step 2: Configure Trigger Settings
+
+<Steps>
+<Step title="Select Event Type">
+  Choose the specific trigger from the list above based on your automation needs.
+  
+  <Tip>
+  Start with one trigger per Zap to keep your automations simple and easy to debug.
+  </Tip>
+</Step>
+
+<Step title="Test the Trigger">
+  Click "Test" to verify the trigger works and see sample data.
+  
+  <Check>
+  You should see sample data that matches the expected format for your chosen trigger.
+  </Check>
+</Step>
+
+<Step title="Customize Data Mapping">
+  Review which data fields are available and how they map to your action apps.
+  
+  <Note>
+  All triggers provide consistent data structures, making it easy to build reliable automations.
+  </Note>
+</Step>
+</Steps>
+
+---
+
+## Trigger Data Structure
+
+All Timetracker triggers provide consistent data structures that include:
+
+### Common Fields
+
+- **Event ID**: Unique identifier for the trigger event
+- **Timestamp**: When the event occurred
+- **User ID**: ID of the user who triggered the event
+- **Account ID**: Your Timetracker account identifier
+
+### Event-Specific Fields
+
+Each trigger includes additional fields relevant to that specific event type. For example:
+- **New Client**: Client details, company information
+- **Timer Events**: Project, task, duration, and description
+- **Project Events**: Project settings, client association
+
+<Info>
+The data structure is designed to be consistent across all triggers, making it easy to build reliable automations that work with multiple event types.
+</Info>
+
+---
+
+## Best Practices
+
+### Trigger Selection
+
+- **Start simple**: Begin with one trigger per Zap
+- **Consider frequency**: Some triggers (like timer events) fire more often than others
+- **Match your workflow**: Choose triggers that align with your team's processes
+
+### Data Handling
+
+- **Validate data**: Always test triggers with sample data before going live
+- **Handle errors**: Set up error handling for cases where data might be missing
+- **Monitor performance**: Keep an eye on Zap execution times and success rates
+
+### Automation Design
+
+- **Single purpose**: Each Zap should have one clear objective
+- **Error recovery**: Include fallback actions for failed executions
+- **Testing**: Test thoroughly with real data before activating
+
+---
+
+## Troubleshooting Triggers
+
+### Common Issues
+
+<AccordionGroup>
+<Accordion title="Trigger Not Firing">
+**Problem**: Your Zap isn't activating when expected events occur
+
+**Solutions**:
+- Verify the trigger is properly configured
+- Check that your Timetracker account is connected
+- Ensure the event actually occurred in Timetracker
+- Test the trigger manually to verify it works
+</Accordion>
+
+<Accordion title="Missing Data">
+**Problem**: Expected data fields are not available in your Zap
+
+**Solutions**:
+- Check the trigger's data structure documentation
+- Verify the event type matches your expectations
+- Test with different event types to see available data
+- Contact support if data seems incomplete
+</Accordion>
+
+<Accordion title="Delayed Execution">
+**Problem**: Zaps are running with delays instead of immediately
+
+**Solutions**:
+- Check your Zapier plan limits
+- Verify webhook delivery is working
+- Monitor Timetracker's webhook status
+- Consider upgrading your Zapier plan for faster execution
+</Accordion>
+</AccordionGroup>
+
+---
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Actions Reference" icon="zap" href="/integrations/zapier/actions">
+    Learn about all available actions you can perform with your trigger data.
+  </Card>
+
+  <Card title="Example Zaps" icon="lightbulb" href="/integrations/zapier/examples">
+    Explore real-world examples of how to use these triggers effectively.
+  </Card>
+</CardGroup>
+
+### Popular Trigger Combinations
+
+- **Timer Started → Timer Stopped**: Track complete work sessions
+- **New Project → New Task**: Automate project setup workflows
+- **Manual Entry → Timer Events**: Sync manual and automatic time tracking
+- **New Client → New Project**: Automate client onboarding processes
+
+### Need Help?
+
+- Check our [trigger troubleshooting guide](/integrations/zapier/troubleshooting#triggers)
+- Review [common trigger issues](/integrations/zapier/troubleshooting#common-trigger-problems)
+- Contact support at support@timetracker.in

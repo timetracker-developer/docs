@@ -1,0 +1,308 @@
+---
+title: "Zapier Integration"
+description: "Connect your [Timetracker](https://timetracker.in) account to [Zapier](https://zapier.com) to automate time tracking workflows and integrate with over 5000+ applications. This integration allows you to create automated workflows (Zaps) that trigger actions based on time tracking events or perform time tracking actions from other apps."
+---
+
+## Overview
+
+The Timetracker Zapier integration provides a seamless way to:
+- Automate time tracking based on calendar events, emails, or other triggers
+- Sync time entries with project management tools
+- Create time reports automatically
+- Integrate with CRM systems for client billing
+- Connect with accounting software for invoicing
+
+## Authentication
+
+The Zapier integration uses API key-based authentication to securely connect your Timetracker account. This ensures that only authorized users can access your time tracking data.
+
+### Authentication Method
+
+The integration uses a **custom authentication type** that requires your Timetracker API key. This approach provides secure, token-based access without storing your login credentials.
+
+### Required Credentials
+
+<ParamField body="apiKey" type="string" required>
+Your Timetracker API key. This is a secure token that grants Zapier access to your account data.
+</ParamField>
+
+### Getting Your API Key
+
+<Steps>
+<Step title="Access Account Settings">
+  Navigate to your Timetracker [account settings](https://app.timetracker.in/settings).
+  <img src="../images/integrations/zapier/zapier-access-settings.png" alt="Generate API Key in Timetracker" width={900} />
+</Step>
+
+<Step title="Access Account Settings">
+  Navigate to your Timetracker [account settings](https://app.timetracker.in/settings/integrations).
+  <img src="../images/integrations/zapier/generate-api-key (1440 x 900 px).png" alt="r" width={900} />
+</Step>
+
+<Step title="Generate API Key">
+  Click on "Generate Key" to create a new authentication token.
+  <img src="../images/integrations/zapier/zapier-generate-key.png" alt="Generate API Key in Timetracker" width={600} />
+  <Warning>
+  Keep your API key secure and never share it publicly. Treat it like a password.
+  </Warning>
+</Step>
+
+<Step title="Copy the Key">
+  Copy the generated API key. You'll need this when setting up the Zapier integration.
+  <img src="../images/integrations/zapier/zapier-copy-secret-key.png" alt="Generate API Key in Timetracker" width={600} />
+  <Tip>
+  The API key is only displayed once when generated. Make sure to copy it immediately.
+  </Tip>
+</Step>
+
+<Step title="Copy the Key">
+  Copy the generated API key. You'll need this when setting up the Zapier integration.
+  <img src="../images/integrations/zapier/zapier-add-key.png" alt="Generate API Key in Timetracker" width={600} />
+  <Tip>
+  The API key is only displayed once when generated. Make sure to copy it immediately.
+  </Tip>
+</Step>
+</Steps>
+
+### Authentication Flow
+
+When you connect your Timetracker account to Zapier, the following process occurs:
+
+1. **Input Validation**: Zapier prompts you to enter your API key
+2. **Connection Test**: Zapier sends a test request to verify your credentials
+3. **User Verification**: The system validates your API key and retrieves your user information
+4. **Connection Established**: Upon successful authentication, the connection is established
+
+### Test Endpoint
+
+The authentication system uses the following endpoint to verify your credentials:
+
+### Connection Label
+
+Once authenticated, your Zapier connection will be labeled using your email address in the format:
+```
+Timetracker - your.email@example.com
+```
+
+This makes it easy to identify which Timetracker account is connected to each Zap.
+
+## Available Triggers
+
+The Timetracker Zapier integration provides six event triggers that can initiate automated workflows. Each trigger is designed to respond to specific actions within your Timetracker account.
+
+<AccordionGroup>
+<Accordion title="Client Management">
+  - **New Client**: Triggers when a new client in Timetracker is created.
+</Accordion>
+
+<Accordion title="Project Management">
+  - **New Project**: Triggers when a new project in Timetracker is created.
+</Accordion>
+
+<Accordion title="Task Management">
+  - **New Task**: Triggers when a new task in Timetracker is created.
+</Accordion>
+
+<Accordion title="Time Tracking">
+  - **Manual Time Entry**: Triggers when a manual time entry is created in Timetracker.
+  - **Timer Started**: Triggers when a timer is started in Timetracker.
+  - **Timer Stopped**: Triggers when a timer is stopped in Timetracker.
+</Accordion>
+</AccordionGroup>
+
+<Note>
+All triggers are real-time events that fire immediately when the corresponding action occurs in your Timetracker account. This ensures your Zaps respond quickly to changes and updates.
+</Note>
+
+## Available Actions
+
+The Timetracker Zapier integration provides ten actions that can be performed in your automated workflows. These actions are organized into two main categories: Create operations and Find operations.
+
+<AccordionGroup>
+<Accordion title="Create Actions">
+  - **Create Tag**: Creates a new tag in the specified workspace.
+  - **Create Project**: Creates a new project in the specified workspace.
+  - **Create Task**: Create a new task in a project.
+  - **Create Client**: Create a new client.
+  - **Create Time Entry**: Create a new time entry.
+</Accordion>
+
+<Accordion title="Find Actions">
+  - **Find a Client**: Find a client in a workspace by name.
+  - **Find a Project**: Find a project in a workspace by name.
+  - **Find a Task**: Find a task in a workspace by name.
+  - **Find a Tag**: Find a tag in a workspace by name.
+  - **Find a Time Entry**: Find a time entry with advanced filtering options.
+</Accordion>
+</AccordionGroup>
+
+<Note>
+All actions require proper authentication and workspace permissions. The lock icons indicate that these actions are protected and require valid API credentials to execute.
+</Note>
+
+## Setup Instructions
+
+<Steps>
+<Step title="Install the App">
+  In Zapier, search for "Timetracker" and install the app to your account.
+</Step>
+
+<Step title="Authenticate">
+  Enter your Timetracker API key when prompted during the connection process.
+  
+  <Check>
+  Verify the connection test passes successfully.
+  </Check>
+</Step>
+
+<Step title="Create Your First Zap">
+  Choose a trigger from the available options (e.g., "Timer Started", "New Project", or "Manual Time Entry") and select an action from another app.
+</Step>
+
+<Step title="Test and Activate">
+  Test your Zap with sample data and activate it when ready.
+</Step>
+</Steps>
+
+## Common Use Cases
+
+<CardGroup cols={2}>
+<Card title="Project Creation Automation" icon="folder-plus">
+  Automatically create projects and tasks when new clients are added to your CRM.
+</Card>
+
+<Card title="Time Entry Management" icon="clock">
+  Create time entries automatically when timers start or from external triggers.
+</Card>
+
+<Card title="Client & Project Sync" icon="refresh-cw">
+  Sync client and project information between Timetracker and other business tools.
+</Card>
+
+<Card title="Data Lookup & Creation" icon="search">
+  Find existing records before creating new ones to avoid duplicates.
+</Card>
+</CardGroup>
+
+### Example Workflow: New Client Onboarding
+
+Here's how you can combine triggers and actions to automate client onboarding:
+
+<Steps>
+<Step title="Trigger: New Client">
+  When a new client is created in Timetracker, the Zap automatically starts.
+</Step>
+
+<Step title="Action: Create Project">
+  The Zap creates a new project for the client using the "Create Project" action.
+</Step>
+
+<Step title="Action: Create Initial Tasks">
+  Automatically create standard onboarding tasks using the "Create Task" action.
+</Step>
+
+<Step title="Action: Create Tags">
+  Add relevant tags to organize and categorize the new client project.
+</Step>
+
+<Step title="External Integration">
+  Send notifications to your team or create calendar events in other apps.
+</Step>
+</Steps>
+
+<Info>
+This workflow demonstrates how the "New Client" trigger can be combined with multiple "Create" actions to automate the entire client onboarding process.
+</Info>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Authentication Issues">
+  **Problem**: "Invalid API key" error
+  
+  **Solution**: 
+  - Verify your API key is correct and hasn't expired
+  - Check that you're using the right account's API key
+  - Generate a new API key if needed
+  
+  **Problem**: Connection test fails
+  
+  **Solution**:
+  - Ensure your internet connection is stable
+  - Check that your Timetracker account is active
+  - Verify the API key has the correct permissions
+</Accordion>
+
+<Accordion title="Data Sync Issues">
+  **Problem**: Time entries not appearing in Zapier
+  
+  **Solution**:
+  - Check that your Zap is properly configured and activated
+  - Verify the trigger conditions match your data
+  - Ensure the Zap hasn't been paused or deactivated
+  
+  **Problem**: Actions not executing properly
+  
+  **Solution**:
+  - Review the action configuration and required fields
+  - Check Zapier's task history for error details
+  - Verify that the target app is properly connected
+</Accordion>
+
+<Accordion title="Rate Limiting">
+  **Problem**: "Too many requests" errors
+  
+  **Solution**:
+  - The API has rate limits to ensure fair usage
+  - Consider batching operations or reducing Zap frequency
+  - Contact support if you need higher rate limits for business use
+</Accordion>
+</AccordionGroup>
+
+## Support and Resources
+
+<CardGroup cols={2}>
+<Card title="Zapier Support" icon="help-circle" href="https://help.zapier.com">
+  Get help with Zapier-specific issues, Zap configuration, and troubleshooting.
+</Card>
+
+<Card title="Timetracker Support" icon="mail" href="mailto:support@timetracker.in">
+  Contact our support team for integration-specific questions or API issues.
+</Card>
+
+<Card title="Community Forum" icon="users" href="https://community.timetracker.in">
+  Connect with other users and share automation ideas and solutions.
+</Card>
+
+<Card title="API Documentation" icon="book-open" href="/api-reference/introduction">
+  Explore the full API reference for advanced integration capabilities.
+</Card>
+</CardGroup>
+
+## Best Practices
+
+<Tip>
+**Optimize Your Zaps:**
+- Use specific triggers to avoid unnecessary executions
+- Test Zaps thoroughly before activating them in production
+- Monitor Zap performance and adjust frequency as needed
+- Keep your API keys secure and rotate them regularly
+</Tip>
+
+<Note>
+**Performance Considerations:**
+- Complex Zaps may take longer to execute
+- Consider using Zapier's built-in delays for time-sensitive operations
+- Monitor your Zapier task usage to stay within plan limits
+</Note>
+
+## Updates and Changes
+
+<Update label="Version 1.0.0" description="Initial Release - December 2024">
+## Features
+- API key-based authentication
+- Time entry triggers and actions
+- Project management integration
+- Client and billing automation
+- Comprehensive error handling and logging
+</Update>
