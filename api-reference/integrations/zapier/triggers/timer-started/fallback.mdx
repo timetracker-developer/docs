@@ -1,0 +1,356 @@
+---
+title: "Timer Started Fallback Data"
+description: "Retrieve sample timer start data for testing Zapier triggers and previewing data structures."
+---
+
+## Overview
+
+The fallback endpoint provides sample timer start data for Zapier trigger testing and configuration. When setting up a "Timer Started" trigger, Zapier uses this endpoint to show users the expected data structure, making it easier to configure workflows before activating live webhook subscriptions.
+
+<Note>
+This endpoint intelligently returns your most recent timer start data when available, or consistent sample data for testing when your workspace has no timer entries yet.
+</Note>
+
+## Authentication
+
+All requests require a valid API key in the Authorization header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Get Sample Data
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://app.timetracker.in/api/integrations/zapier/triggers/time-entries/start/fallback' \
+  -H 'Authorization: Bearer YOUR_API_KEY'
+```
+
+```javascript JavaScript
+const response = await fetch('https://app.timetracker.in/api/integrations/zapier/triggers/time-entries/start/fallback', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY'
+  }
+});
+
+const data = await response.json();
+console.log(data[0]); // First (and typically only) timer start object
+```
+
+```python Python
+import requests
+
+url = "https://app.timetracker.in/api/integrations/zapier/triggers/time-entries/start/fallback"
+headers = {
+    "Authorization": "Bearer YOUR_API_KEY"
+}
+
+response = requests.get(url, headers=headers)
+timer_data = response.json()[0]  # First timer start object
+```
+
+</CodeGroup>
+
+## Response
+
+### Success Response
+
+Returns an array containing one timer start object - either your most recent timer start or sample data:
+
+```json
+[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "description": "Working on user authentication implementation",
+    "date": "2024-01-15T00:00:00.000Z",
+    "startTime": "2024-01-15T10:00:00.000Z",
+    "billable": true,
+    "action": "start_timer",
+    "workspace": {
+      "id": "abc12345-e89b-12d3-a456-426614174003",
+      "name": "Development Team"
+    },
+    "teamMember": {
+      "id": "def67890-e89b-12d3-a456-426614174004",
+      "name": "John Doe"
+    },
+    "project": {
+      "id": "456e7890-e89b-12d3-a456-426614174001",
+      "name": "Mobile App Development"
+    },
+    "task": {
+      "id": "789e0123-e89b-12d3-a456-426614174002",
+      "name": "Implement user authentication"
+    },
+    "tags": [
+      {
+        "id": "ghi11111-e89b-12d3-a456-426614174005",
+        "name": "authentication"
+      },
+      {
+        "id": "jkl22222-e89b-12d3-a456-426614174006",
+        "name": "mobile"
+      }
+    ],
+    "createdAt": "2024-01-15T10:00:00.000Z",
+    "updatedAt": "2024-01-15T10:00:00.000Z"
+  }
+]
+```
+
+### Data Fields
+
+<ResponseField name="id" type="string">
+  Unique time entry identifier (UUID format)
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Time entry description
+</ResponseField>
+
+<ResponseField name="date" type="string">
+  Date of the time entry in ISO 8601 format
+</ResponseField>
+
+<ResponseField name="startTime" type="string">
+  Timer start time in ISO 8601 format
+</ResponseField>
+
+<ResponseField name="billable" type="boolean">
+  Whether the time entry is billable
+</ResponseField>
+
+<ResponseField name="action" type="string">
+  Action type - always `"start_timer"` for this trigger
+</ResponseField>
+
+<ResponseField name="workspace" type="object">
+  Associated workspace information
+  
+  <Expandable title="Workspace Object">
+    <ResponseField name="id" type="string">
+      Unique workspace identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Human-readable workspace name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="teamMember" type="object">
+  Team member who started the timer
+  
+  <Expandable title="Team Member Object">
+    <ResponseField name="id" type="string">
+      Team member unique identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Team member name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="project" type="object">
+  Associated project information
+  
+  <Expandable title="Project Object">
+    <ResponseField name="id" type="string">
+      Unique project identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Project name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="task" type="object">
+  Associated task information
+  
+  <Expandable title="Task Object">
+    <ResponseField name="id" type="string">
+      Unique task identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Task name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="tags" type="array">
+  Array of tags associated with the time entry
+  
+  <Expandable title="Tag Array">
+    <ResponseField name="id" type="string">
+      Tag unique identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Tag name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 timestamp when time entry was created
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  ISO 8601 timestamp when time entry was last modified
+</ResponseField>
+
+### Error Responses
+
+<AccordionGroup>
+  <Accordion title="401 Unauthorized">
+    ```json
+    {
+      "error": "Unauthorized"
+    }
+    ```
+    **Cause**: Invalid or missing API key  
+    **Solution**: Verify your API key is correct and properly formatted
+  </Accordion>
+  
+  <Accordion title="500 Internal Server Error">
+    ```json
+    {
+      "error": "Failed to fetch time entries"
+    }
+    ```
+    **Cause**: Server-side error during data retrieval  
+    **Solution**: Retry the request or contact support if the issue persists
+  </Accordion>
+</AccordionGroup>
+
+### Sample Data Format
+
+When your workspace has no timer entries, you'll receive this consistent sample data:
+
+```json
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "description": "Working on sample task implementation",
+  "date": "2024-01-15T00:00:00.000Z",
+  "startTime": "2024-01-15T10:00:00.000Z",
+  "billable": true,
+  "action": "start_timer",
+  "workspace": {
+    "id": "abc12345-e89b-12d3-a456-426614174003",
+    "name": "Sample Development Team"
+  },
+  "teamMember": {
+    "id": "def67890-e89b-12d3-a456-426614174004",
+    "name": "Sample Developer"
+  },
+  "project": {
+    "id": "456e7890-e89b-12d3-a456-426614174001",
+    "name": "Sample Project"
+  },
+  "task": {
+    "id": "789e0123-e89b-12d3-a456-426614174002",
+    "name": "Sample Task"
+  },
+  "tags": [
+    {
+      "id": "ghi11111-e89b-12d3-a456-426614174005",
+      "name": "sample"
+    },
+    {
+      "id": "jkl22222-e89b-12d3-a456-426614174006",
+      "name": "development"
+    }
+  ],
+  "createdAt": "2024-01-15T10:00:00.000Z",
+  "updatedAt": "2024-01-15T10:00:00.000Z"
+}
+```
+
+## Zapier Integration Workflow
+
+### How Zapier Uses This Endpoint
+
+<Steps>
+  <Step title="Trigger Configuration">
+    When you set up a "Timer Started" trigger in Zapier, it automatically calls this endpoint to fetch sample data.
+  </Step>
+  
+  <Step title="Data Structure Display">
+    Zapier shows you the returned timer start data structure, including all available fields and their formats.
+  </Step>
+  
+  <Step title="Field Mapping Setup">
+    You can map specific timer fields (like `description`, `project.name`, `task.name`, `teamMember.name`) to actions in your workflow.
+  </Step>
+  
+  <Step title="Testing & Validation">
+    Use the sample data to test your workflow logic before activating live webhook notifications.
+  </Step>
+  
+  <Step title="Production Activation">
+    Once configured, Zapier switches to receiving real-time data via webhook subscriptions.
+  </Step>
+</Steps>
+
+<Tip>
+**Pro Tip**: The data structure shown during setup matches exactly what you'll receive in live webhook payloads, so you can confidently design your workflows around the sample data.
+</Tip>
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Zapier Trigger Setup">
+    **Primary Use**: Zapier automatically calls this endpoint when users configure "Timer Started" triggers to show them what data will be available.
+  </Accordion>
+  
+  <Accordion title="Integration Development">
+    **Development Use**: Test your integration logic with consistent, predictable data structures before connecting to live timer start events.
+  </Accordion>
+  
+  <Accordion title="Documentation & Training">
+    **Reference Use**: Use the returned data structure to document what fields are available in your time tracking workflows.
+  </Accordion>
+  
+  <Accordion title="Workflow Validation">
+    **Testing Use**: Validate that your automation workflows can handle all the timer data fields before going live.
+  </Accordion>
+</AccordionGroup>
+
+## Important Notes
+
+<Warning>
+**Data Consistency Guarantee**: The structure returned by this endpoint exactly matches the webhook payload format, ensuring seamless transition from testing to production.
+</Warning>
+
+<Info>
+**Workspace Isolation**: Only returns real timer data from your authenticated workspace. Cross-workspace data access is prevented for security.
+</Info>
+
+<Check>
+**Integration Best Practices**:
+- Always test your workflows with this sample data first
+- The endpoint returns an array, so access the first element: `data[0]`
+- All dates use ISO 8601 format for consistent parsing
+- Time entry IDs are always UUIDs for reliable identification
+- Tags arrays may be empty for entries with no tags
+- Action field is always `"start_timer"` for this trigger
+- Start time is always present, but end time is not (timer is running)
+</Check>
+
+## Testing Your Integration
+
+To test how your application handles timer start data:
+
+1. **Call the endpoint** with your API credentials
+2. **Parse the response** and extract the first timer object
+3. **Validate data types** match your expected formats
+4. **Test field mapping** for your specific use case
+5. **Handle edge cases** like missing optional fields or empty arrays
+
+This ensures your integration works smoothly when real timer start data flows through webhooks.

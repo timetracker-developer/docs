@@ -1,0 +1,542 @@
+---
+title: "Find Time Entry"
+description: "Search for time entries with advanced filtering options including date ranges, project/task filters, and team member criteria."
+---
+
+## Overview
+
+The Find Time Entry endpoint allows you to search for time entries with comprehensive filtering options. This endpoint supports advanced search criteria including date ranges, project/task filters, team member selection, and billable status filtering for detailed time tracking analysis.
+
+<Note>
+This endpoint provides the most comprehensive filtering options among all find endpoints, allowing you to locate specific time entries based on multiple criteria for detailed time tracking and reporting workflows.
+</Note>
+
+## Authentication
+
+All requests require a valid API key in the Authorization header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Find Time Entry
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://app.timetracker.in/api/integrations/zapier/triggers/time-entries/find' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -d '{
+    "workspace_id": "w1b2c3d4-e5f6-7890-abcd-ef0987654321",
+    "description": "Development work",
+    "project_id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "billable": "true",
+    "date_after": "2024-01-01T00:00:00Z",
+    "date_before": "2024-01-31T23:59:59Z"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://app.timetracker.in/api/integrations/zapier/triggers/time-entries/find', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    workspace_id: 'w1b2c3d4-e5f6-7890-abcd-ef0987654321',
+    description: 'Development work',
+    project_id: 'p1a2b3c4-d5e6-7890-abcd-ef1234567890',
+    billable: 'true',
+    date_after: '2024-01-01T00:00:00Z',
+    date_before: '2024-01-31T23:59:59Z'
+  })
+});
+
+const timeEntries = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://app.timetracker.in/api/integrations/zapier/triggers/time-entries/find"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+}
+data = {
+    "workspace_id": "w1b2c3d4-e5f6-7890-abcd-ef0987654321",
+    "description": "Development work",
+    "project_id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "billable": "true",
+    "date_after": "2024-01-01T00:00:00Z",
+    "date_before": "2024-01-31T23:59:59Z"
+}
+
+response = requests.post(url, headers=headers, json=data)
+timeEntries = response.json()
+```
+
+</CodeGroup>
+
+### Request Body
+
+<ParamField body="workspace_id" type="string" required>
+  The unique identifier of the workspace to search within. Must be a valid UUID format.
+  
+  **Example:** `"w1b2c3d4-e5f6-7890-abcd-ef0987654321"`
+</ParamField>
+
+<ParamField body="description" type="string" optional>
+  Search for time entries by description text. Performs case-insensitive partial matching.
+  
+  **Example:** `"Development work"` or `"meeting"` (will match entries containing these terms)
+</ParamField>
+
+<ParamField body="team_member_id" type="string" optional>
+  Filter time entries by specific team member ID.
+  
+  **Example:** `"tm1a2b3c4-d5e6-7890-abcd-ef1234567890"`
+</ParamField>
+
+<ParamField body="project_id" type="string" optional>
+  Filter time entries by specific project ID.
+  
+  **Example:** `"p1a2b3c4-d5e6-7890-abcd-ef1234567890"`
+</ParamField>
+
+<ParamField body="task_id" type="string" optional>
+  Filter time entries by specific task ID.
+  
+  **Example:** `"t1a2b3c4-d5e6-7890-abcd-ef1234567890"`
+</ParamField>
+
+<ParamField body="billable" type="string" optional>
+  Filter by billable status. Accepts `"true"` or `"false"`.
+  
+  **Example:** `"true"` (only billable entries) or `"false"` (only non-billable entries)
+</ParamField>
+
+<ParamField body="manually_entered" type="string" optional>
+  Filter by entry method. Accepts `"true"` or `"false"`.
+  
+  **Example:** `"true"` (manually entered) or `"false"` (tracked with timer)
+</ParamField>
+
+<ParamField body="date_after" type="string" optional>
+  Filter entries created after this date. Must be ISO 8601 format.
+  
+  **Example:** `"2024-01-01T00:00:00Z"`
+</ParamField>
+
+<ParamField body="date_before" type="string" optional>
+  Filter entries created before this date. Must be ISO 8601 format.
+  
+  **Example:** `"2024-01-31T23:59:59Z"`
+</ParamField>
+
+<ParamField body="start_time_after" type="string" optional>
+  Filter entries with start time after this date. Must be ISO 8601 format.
+  
+  **Example:** `"2024-01-01T09:00:00Z"`
+</ParamField>
+
+<ParamField body="start_time_before" type="string" optional>
+  Filter entries with start time before this date. Must be ISO 8601 format.
+  
+  **Example:** `"2024-01-01T17:00:00Z"`
+</ParamField>
+
+<ParamField body="end_time_after" type="string" optional>
+  Filter entries with end time after this date. Must be ISO 8601 format.
+  
+  **Example:** `"2024-01-01T10:00:00Z"`
+</ParamField>
+
+<ParamField body="end_time_before" type="string" optional>
+  Filter entries with end time before this date. Must be ISO 8601 format.
+  
+  **Example:** `"2024-01-01T18:00:00Z"`
+</ParamField>
+
+<ParamField body="duration_min" type="integer" optional>
+  Filter entries with duration greater than or equal to this value (in seconds).
+  
+  **Example:** `3600` (1 hour minimum)
+</ParamField>
+
+<ParamField body="duration_max" type="integer" optional>
+  Filter entries with duration less than or equal to this value (in seconds).
+  
+  **Example:** `28800` (8 hours maximum)
+</ParamField>
+
+## Response
+
+### Success Response
+
+Returns an array containing the matching time entry object with comprehensive details, or an empty array if no match is found:
+
+```json
+[
+  {
+    "id": "te1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "date": "2024-01-15T10:00:00.000Z",
+    "description": "Development work on new feature",
+    "start_time": "2024-01-15T09:00:00.000Z",
+    "end_time": "2024-01-15T17:00:00.000Z",
+    "duration": 28800,
+    "duration_hours": 8,
+    "billable": true,
+    "manually_entered": false,
+    "workspace_id": "w1b2c3d4-e5f6-7890-abcd-ef0987654321",
+    "workspace_name": "Development Team",
+    "team_member_id": "tm1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "team_member_name": "John Doe",
+    "team_member_email": "john@example.com",
+    "team_member_role": "Developer",
+    "project_id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "project_name": "Mobile App Development",
+    "project_status": "active",
+    "client_id": "c1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "client_name": "TechCorp Inc.",
+    "task_id": "t1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "task_name": "Implement user authentication",
+    "task_status": "in-progress",
+    "timesheet_id": "ts1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "timesheet_status": "draft",
+    "tags": [
+      {
+        "id": "tag1a2b3c4-d5e6-7890-abcd-ef1234567890",
+        "name": "Development",
+        "color": "#3B82F6"
+      }
+    ],
+    "tag_count": 1,
+    "createdAt": "2024-01-15T09:00:00.000Z",
+    "updatedAt": "2024-01-15T17:00:00.000Z"
+  }
+]
+```
+
+<ResponseField name="id" type="string">
+  Unique time entry identifier (UUID format)
+</ResponseField>
+
+<ResponseField name="date" type="string">
+  Date when the time entry occurred (ISO 8601 format)
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Description of the work performed
+</ResponseField>
+
+<ResponseField name="start_time" type="string">
+  Start time of the work session (ISO 8601 format, null if not tracked)
+</ResponseField>
+
+<ResponseField name="end_time" type="string">
+  End time of the work session (ISO 8601 format, null if not tracked)
+</ResponseField>
+
+<ResponseField name="duration" type="integer">
+  Duration of the work session in seconds
+</ResponseField>
+
+<ResponseField name="duration_hours" type="number">
+  Duration of the work session in hours (calculated from seconds)
+</ResponseField>
+
+<ResponseField name="billable" type="boolean">
+  Whether this time entry is billable to the client
+</ResponseField>
+
+<ResponseField name="manually_entered" type="boolean">
+  Whether this entry was manually entered or tracked with a timer
+</ResponseField>
+
+<ResponseField name="workspace_id" type="string">
+  Unique identifier of the workspace containing this time entry
+</ResponseField>
+
+<ResponseField name="workspace_name" type="string">
+  Name of the workspace containing this time entry
+</ResponseField>
+
+<ResponseField name="team_member_id" type="string">
+  Unique identifier of the team member who logged this time entry
+</ResponseField>
+
+<ResponseField name="team_member_name" type="string">
+  Full name of the team member who logged this time entry
+</ResponseField>
+
+<ResponseField name="team_member_email" type="string">
+  Email address of the team member who logged this time entry
+</ResponseField>
+
+<ResponseField name="team_member_role" type="string">
+  Role name of the team member who logged this time entry
+</ResponseField>
+
+<ResponseField name="project_id" type="string">
+  Unique identifier of the associated project (null if no project)
+</ResponseField>
+
+<ResponseField name="project_name" type="string">
+  Name of the associated project (null if no project)
+</ResponseField>
+
+<ResponseField name="project_status" type="string">
+  Status of the associated project (null if no project)
+</ResponseField>
+
+<ResponseField name="client_id" type="string">
+  Unique identifier of the associated client (null if no client)
+</ResponseField>
+
+<ResponseField name="client_name" type="string">
+  Name of the associated client (null if no client)
+</ResponseField>
+
+<ResponseField name="task_id" type="string">
+  Unique identifier of the associated task (null if no task)
+</ResponseField>
+
+<ResponseField name="task_name" type="string">
+  Name of the associated task (null if no task)
+</ResponseField>
+
+<ResponseField name="task_status" type="string">
+  Status of the associated task (null if no task)
+</ResponseField>
+
+<ResponseField name="timesheet_id" type="string">
+  Unique identifier of the associated timesheet (null if not part of a timesheet)
+</ResponseField>
+
+<ResponseField name="timesheet_status" type="string">
+  Status of the associated timesheet (null if not part of a timesheet)
+</ResponseField>
+
+<ResponseField name="tags" type="array">
+  Array of tags associated with this time entry
+  
+  <Expandable title="Tag Object Properties">
+    <ResponseField name="id" type="string">
+      Unique tag identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Tag name
+    </ResponseField>
+    
+    <ResponseField name="color" type="string">
+      Hex color code for the tag
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="tag_count" type="integer">
+  Number of tags associated with this time entry
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 timestamp when time entry was created
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  ISO 8601 timestamp when time entry was last modified
+</ResponseField>
+
+### No Results Response
+
+When no matching time entries are found, returns an empty array:
+
+```json
+[]
+```
+
+### Error Responses
+
+<AccordionGroup>
+  <Accordion title="400 Bad Request - Invalid Parameters">
+    ```json
+    {
+      "error": "Invalid request parameters"
+    }
+    ```
+    **Cause**: Invalid UUID format, invalid date format, or invalid filter values  
+    **Solution**: Ensure all parameters use correct formats (UUIDs, ISO 8601 dates, valid boolean strings)
+  </Accordion>
+  
+  <Accordion title="401 Unauthorized">
+    ```json
+    {
+      "error": "Unauthorized"
+    }
+    ```
+    **Cause**: Invalid or missing API key  
+    **Solution**: Verify your API key is correct and properly formatted
+  </Accordion>
+  
+  <Accordion title="500 Internal Server Error">
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+    **Cause**: Server-side error during search  
+    **Solution**: Retry the request or contact support if the issue persists
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Filtering Options
+
+### Date Range Filtering
+
+The endpoint supports multiple date-based filters:
+
+<AccordionGroup>
+  <Accordion title="Entry Date Filtering">
+    **Fields**: `date_after`, `date_before`  
+    **Purpose**: Filter by when the time entry was created  
+    **Use Case**: Find entries from specific time periods
+  </Accordion>
+  
+  <Accordion title="Work Session Filtering">
+    **Fields**: `start_time_after`, `start_time_before`, `end_time_after`, `end_time_before`  
+    **Purpose**: Filter by actual work session times  
+    **Use Case**: Find entries from specific work hours or shifts
+  </Accordion>
+  
+  <Accordion title="Duration Filtering">
+    **Fields**: `duration_min`, `duration_max`  
+    **Purpose**: Filter by work session duration  
+    **Use Case**: Find short breaks, long work sessions, or specific duration ranges
+  </Accordion>
+</AccordionGroup>
+
+### Project and Task Filtering
+
+Filter time entries by their project or task associations:
+
+- **Project Filtering**: Use `project_id` to find all time entries for a specific project
+- **Task Filtering**: Use `task_id` to find all time entries for a specific task
+- **Combined Filtering**: Use both filters together for more specific results
+
+### Team Member Filtering
+
+Filter time entries by the team member who logged them:
+
+- **Individual Filtering**: Use `team_member_id` to find entries for a specific team member
+- **Team Analysis**: Combine with date filters to analyze individual productivity
+
+### Billable and Entry Method Filtering
+
+Filter by business-relevant criteria:
+
+- **Billable Status**: Use `billable` to separate billable from non-billable work
+- **Entry Method**: Use `manually_entered` to distinguish between timer-tracked and manually entered time
+
+## Zapier Integration Usage
+
+### Common Use Cases
+
+<AccordionGroup>
+  <Accordion title="Time Entry Analysis">
+    **Use Case**: Analyze time tracking data for reporting, billing, or productivity analysis.
+    
+    **Implementation**: Use multiple filters to create detailed reports on time allocation, billable hours, or team productivity.
+  </Accordion>
+  
+  <Accordion title="Billing and Invoicing">
+    **Use Case**: Generate billing reports or create invoices based on billable time entries.
+    
+    **Implementation**: Filter by `billable: "true"` and date ranges to get billable hours for specific periods.
+  </Accordion>
+  
+  <Accordion title="Project Time Tracking">
+    **Use Case**: Monitor time spent on specific projects or tasks for project management.
+    
+    **Implementation**: Use `project_id` or `task_id` filters to track project progress and time allocation.
+  </Accordion>
+  
+  <Accordion title="Team Productivity Monitoring">
+    **Use Case**: Monitor team member productivity and work patterns.
+    
+    **Implementation**: Use `team_member_id` and date filters to analyze individual or team productivity.
+  </Accordion>
+  
+  <Accordion title="Timesheet Management">
+    **Use Case**: Manage timesheet submissions and approvals.
+    
+    **Implementation**: Use `timesheet_id` and `timesheet_status` to work with timesheet data.
+  </Accordion>
+</AccordionGroup>
+
+### Zapier Field Mapping
+
+When setting up Zapier actions, you can map these time entry fields:
+
+- **Time Entry ID** → `id` (for referencing in other API calls)
+- **Time Data** → `duration`, `duration_hours`, `start_time`, `end_time` (for time calculations)
+- **Work Information** → `description`, `date` (for work documentation)
+- **Billing Data** → `billable` (for billing workflows)
+- **Project/Task Data** → `project_id`, `project_name`, `task_id`, `task_name` (for project association)
+- **Team Member Data** → `team_member_id`, `team_member_name`, `team_member_email` (for team management)
+- **Client Data** → `client_id`, `client_name` (for client association)
+- **Tag Data** → `tags` array, `tag_count` (for categorization)
+
+## Time Entry Types
+
+### Timer-Tracked Entries
+
+Entries created using the timer feature:
+
+- **Characteristics**: Have `start_time` and `end_time` values
+- **Manually Entered**: `false`
+- **Use Case**: Real-time work tracking
+
+### Manually Entered Entries
+
+Entries created by manually entering time:
+
+- **Characteristics**: May not have `start_time` and `end_time` values
+- **Manually Entered**: `true`
+- **Use Case**: Retroactive time entry or estimated time
+
+## Best Practices
+
+<Check>
+**Search Optimization**:
+- Use specific date ranges to limit results and improve performance
+- Combine multiple filters for more precise results
+- Use description text search for finding specific types of work
+- Consider using duration filters to find unusual time entries
+- Cache frequently used filter combinations
+</Check>
+
+<Tip>
+**Pro Tip**: Use the comprehensive filtering options to create automated reports that analyze time allocation patterns, identify productivity trends, or generate client billing summaries.
+</Tip>
+
+<Warning>
+**Performance Considerations**: When using multiple filters, especially date ranges, consider the time period to avoid returning too many results. Large result sets may impact performance.
+</Warning>
+
+## Rate Limits
+
+This endpoint follows standard API rate limiting:
+
+- **Rate Limit**: 100 requests per minute per API key
+- **Burst Limit**: 10 requests per second
+- **Reset Period**: Rolling 60-second window
+
+<Info>
+**Rate Limit Headers**: Response headers include current usage information:
+- `X-RateLimit-Limit`: Maximum requests per window
+- `X-RateLimit-Remaining`: Remaining requests in current window
+- `X-RateLimit-Reset`: Timestamp when the limit resets
+</Info>

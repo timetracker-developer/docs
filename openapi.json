@@ -579,6 +579,166 @@
         }
       }
     },
+    "/api/integrations/zapier/triggers/clients/fallback": {
+      "get": {
+        "summary": "Get Clients Fallback",
+        "description": "Fallback endpoint to retrieve clients for Zapier triggers when webhook data is not available",
+        "tags": ["Zapier Integration", "Clients", "Triggers"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of clients for fallback trigger",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": ["individual", "company"]
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": ["active", "inactive"]
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "note": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "currency": {
+                        "type": "string"
+                      },
+                      "workspace": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/integrations/zapier/webhooks/{webhookId}": {
+      "delete": {
+        "summary": "Delete Webhook",
+        "description": "Delete a webhook subscription by ID",
+        "tags": ["Zapier Integration", "Webhooks"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "webhookId",
+            "in": "path",
+            "required": true,
+            "description": "Webhook ID to delete",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "webhookId": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Webhook deleted successfully (No Content)"
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "404": {
+            "description": "Webhook not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Webhook not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
     "/api/integrations/zapier/actions/tags": {
       "get": {
         "summary": "Get Tags",
@@ -1078,6 +1238,10 @@
     {
       "name": "Webhooks",
       "description": "Webhook subscription management"
+    },
+    {
+      "name": "Triggers",
+      "description": "Zapier trigger endpoints for fallback data retrieval"
     }
   ]
 }

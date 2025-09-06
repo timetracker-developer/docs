@@ -1,0 +1,554 @@
+---
+title: "Create Time Entry"
+description: "Create a new time entry in your workspace through the Zapier integration API."
+---
+
+## Overview
+
+Create a new time entry in your workspace using the Zapier integration API. This endpoint allows you to add time entries with comprehensive information including project associations, task assignments, and tag categorization.
+
+<Note>
+This endpoint is designed for Zapier integrations but can be used with any application that needs to create time entries programmatically.
+</Note>
+
+## Authentication
+
+All requests require a valid API key in the Authorization header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Create Time Entry
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://app.timetracker.in/api/integrations/zapier/triggers/time-entries' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -d '{
+    "date": "2024-01-15T10:00:00.000Z",
+    "description": "Development work on new feature",
+    "start_time": "2024-01-15T09:00:00.000Z",
+    "end_time": "2024-01-15T17:00:00.000Z",
+    "billable": true,
+    "manually_entered": true,
+    "workspace_id": "w1b2c3d4-e5f6-7890-abcd-ef0987654321",
+    "team_member_id": "tm1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "project_id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "task_id": "t1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "tag_ids": ["tag1a2b3c4-d5e6-7890-abcd-ef1234567890", "tag2b3c4d5-e6f7-8901-bcde-f23456789012"]
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://app.timetracker.in/api/integrations/zapier/triggers/time-entries', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    date: '2024-01-15T10:00:00.000Z',
+    description: 'Development work on new feature',
+    start_time: '2024-01-15T09:00:00.000Z',
+    end_time: '2024-01-15T17:00:00.000Z',
+    billable: true,
+    manually_entered: true,
+    workspace_id: 'w1b2c3d4-e5f6-7890-abcd-ef0987654321',
+    team_member_id: 'tm1a2b3c4-d5e6-7890-abcd-ef1234567890',
+    project_id: 'p1a2b3c4-d5e6-7890-abcd-ef1234567890',
+    task_id: 't1a2b3c4-d5e6-7890-abcd-ef1234567890',
+    tag_ids: ['tag1a2b3c4-d5e6-7890-abcd-ef1234567890', 'tag2b3c4d5-e6f7-8901-bcde-f23456789012']
+  })
+});
+
+const timeEntry = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://app.timetracker.in/api/integrations/zapier/triggers/time-entries"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+}
+data = {
+    "date": "2024-01-15T10:00:00.000Z",
+    "description": "Development work on new feature",
+    "start_time": "2024-01-15T09:00:00.000Z",
+    "end_time": "2024-01-15T17:00:00.000Z",
+    "billable": True,
+    "manually_entered": True,
+    "workspace_id": "w1b2c3d4-e5f6-7890-abcd-ef0987654321",
+    "team_member_id": "tm1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "project_id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "task_id": "t1a2b3c4-d5e6-7890-abcd-ef1234567890",
+    "tag_ids": ["tag1a2b3c4-d5e6-7890-abcd-ef1234567890", "tag2b3c4d5-e6f7-8901-bcde-f23456789012"]
+}
+
+response = requests.post(url, headers=headers, json=data)
+timeEntry = response.json()
+```
+
+</CodeGroup>
+
+### Request Body
+
+<ParamField body="workspace_id" type="string" required>
+  The UUID of the workspace where the time entry will be created.
+  
+  **Example:** `"w1b2c3d4-e5f6-7890-abcd-ef0987654321"`
+</ParamField>
+
+<ParamField body="start_time" type="string" required>
+  The start time of the time entry. Must be a valid ISO 8601 datetime string.
+  
+  **Example:** `"2024-01-15T09:00:00.000Z"`
+</ParamField>
+
+<ParamField body="end_time" type="string" required>
+  The end time of the time entry. Must be a valid ISO 8601 datetime string and after the start time.
+  
+  **Example:** `"2024-01-15T17:00:00.000Z"`
+</ParamField>
+
+<ParamField body="billable" type="boolean" required>
+  Whether this time entry is billable to the client.
+  
+  **Example:** `true`
+</ParamField>
+
+<ParamField body="date" type="string">
+  The date when the time entry occurred. If not provided, defaults to the date from start_time.
+  
+  **Example:** `"2024-01-15T10:00:00.000Z"`
+</ParamField>
+
+<ParamField body="description" type="string">
+  Description of the work performed during this time entry.
+  
+  **Example:** `"Development work on new feature"`
+</ParamField>
+
+<ParamField body="duration" type="number">
+  Duration of the time entry in seconds. If not provided, calculated from start_time and end_time.
+  
+  **Example:** `28800`
+</ParamField>
+
+<ParamField body="manually_entered" type="boolean" default="true">
+  Whether this time entry was entered manually (true) or tracked automatically (false).
+  
+  **Example:** `true`
+</ParamField>
+
+<ParamField body="team_member_id" type="string">
+  The UUID of the team member who performed the work. Must be a valid team member in the workspace.
+  
+  **Example:** `"tm1a2b3c4-d5e6-7890-abcd-ef1234567890"`
+</ParamField>
+
+<ParamField body="project_id" type="string">
+  The UUID of the project associated with this time entry. Must be a valid project in the workspace.
+  
+  **Example:** `"p1a2b3c4-d5e6-7890-abcd-ef1234567890"`
+</ParamField>
+
+<ParamField body="task_id" type="string">
+  The UUID of the task associated with this time entry. Must be a valid task in the specified project.
+  
+  **Example:** `"t1a2b3c4-d5e6-7890-abcd-ef1234567890"`
+</ParamField>
+
+<ParamField body="tag_ids" type="array">
+  Array of tag UUIDs to associate with this time entry. All tags must exist in the workspace.
+  
+  **Example:** `["tag1a2b3c4-d5e6-7890-abcd-ef1234567890", "tag2b3c4d5-e6f7-8901-bcde-f23456789012"]`
+</ParamField>
+
+## Response
+
+### Success Response
+
+Returns the created time entry object with all associated data:
+
+```json
+{
+  "id": "te1a2b3c4-d5e6-7890-abcd-ef1234567890",
+  "date": "2024-01-15T10:00:00.000Z",
+  "description": "Development work on new feature",
+  "start_time": "2024-01-15T09:00:00.000Z",
+  "end_time": "2024-01-15T17:00:00.000Z",
+  "duration": 28800,
+  "duration_hours": 8,
+  "billable": true,
+  "manually_entered": true,
+  "workspace_id": "w1b2c3d4-e5f6-7890-abcd-ef0987654321",
+  "workspace_name": "Development Team",
+  "team_member_id": "tm1a2b3c4-d5e6-7890-abcd-ef1234567890",
+  "team_member_name": "John Doe",
+  "team_member_email": "john@example.com",
+  "team_member_role": "Developer",
+  "project_id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+  "project_name": "Mobile App Development",
+  "project_status": "active",
+  "client_id": "c1a2b3c4-d5e6-7890-abcd-ef1234567890",
+  "client_name": "TechCorp Inc.",
+  "task_id": "t1a2b3c4-d5e6-7890-abcd-ef1234567890",
+  "task_name": "Implement user authentication",
+  "task_status": "in-progress",
+  "timesheet_id": null,
+  "timesheet_status": null,
+  "tags": [
+    {
+      "id": "tag1a2b3c4-d5e6-7890-abcd-ef1234567890",
+      "name": "Development",
+      "color": "#3B82F6"
+    },
+    {
+      "id": "tag2b3c4d5-e6f7-8901-bcde-f23456789012",
+      "name": "Frontend",
+      "color": "#10B981"
+    }
+  ],
+  "tag_count": 2,
+  "created_at": "2024-01-15T09:00:00.000Z",
+  "updated_at": "2024-01-15T17:00:00.000Z"
+}
+```
+
+### Response Fields
+
+<ResponseField name="id" type="string">
+  Unique time entry identifier (UUID format)
+</ResponseField>
+
+<ResponseField name="date" type="string">
+  Date when the time entry occurred (ISO 8601 format)
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Description of the work performed
+</ResponseField>
+
+<ResponseField name="start_time" type="string">
+  Start time of the time entry (ISO 8601 format)
+</ResponseField>
+
+<ResponseField name="end_time" type="string">
+  End time of the time entry (ISO 8601 format)
+</ResponseField>
+
+<ResponseField name="duration" type="integer">
+  Duration of the time entry in seconds
+</ResponseField>
+
+<ResponseField name="duration_hours" type="number">
+  Duration of the time entry in hours (calculated from seconds)
+</ResponseField>
+
+<ResponseField name="billable" type="boolean">
+  Whether the time entry is billable
+</ResponseField>
+
+<ResponseField name="manually_entered" type="boolean">
+  Whether the time entry was entered manually
+</ResponseField>
+
+<ResponseField name="workspace_id" type="string">
+  Associated workspace identifier
+</ResponseField>
+
+<ResponseField name="workspace_name" type="string">
+  Associated workspace name
+</ResponseField>
+
+<ResponseField name="team_member_id" type="string">
+  Associated team member identifier
+</ResponseField>
+
+<ResponseField name="team_member_name" type="string">
+  Associated team member name
+</ResponseField>
+
+<ResponseField name="team_member_email" type="string">
+  Associated team member email
+</ResponseField>
+
+<ResponseField name="team_member_role" type="string">
+  Associated team member role
+</ResponseField>
+
+<ResponseField name="project_id" type="string">
+  Associated project identifier
+</ResponseField>
+
+<ResponseField name="project_name" type="string">
+  Associated project name
+</ResponseField>
+
+<ResponseField name="project_status" type="string">
+  Associated project status
+</ResponseField>
+
+<ResponseField name="client_id" type="string">
+  Associated client identifier (if project has a client)
+</ResponseField>
+
+<ResponseField name="client_name" type="string">
+  Associated client name (if project has a client)
+</ResponseField>
+
+<ResponseField name="task_id" type="string">
+  Associated task identifier
+</ResponseField>
+
+<ResponseField name="task_name" type="string">
+  Associated task name
+</ResponseField>
+
+<ResponseField name="task_status" type="string">
+  Associated task status
+</ResponseField>
+
+<ResponseField name="timesheet_id" type="string">
+  Associated timesheet identifier
+</ResponseField>
+
+<ResponseField name="timesheet_status" type="string">
+  Associated timesheet status
+</ResponseField>
+
+<ResponseField name="tags" type="array">
+  Array of associated tags
+  
+  <Expandable title="Tag Object">
+    <ResponseField name="id" type="string">
+      Tag identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Tag name
+    </ResponseField>
+    
+    <ResponseField name="color" type="string">
+      Tag color
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="tag_count" type="integer">
+  Total number of tags associated with this time entry
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp when time entry was created
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  ISO 8601 timestamp when time entry was last modified
+</ResponseField>
+
+### Error Responses
+
+<AccordionGroup>
+  <Accordion title="400 Bad Request - Validation Error">
+    ```json
+    {
+      "error": "Invalid request body",
+      "details": [
+        {
+          "field": "start_time",
+          "message": "String must contain at least 1 character(s)"
+        }
+      ]
+    }
+    ```
+    **Cause**: Required fields are missing or invalid  
+    **Solution**: Check the request body and ensure all required fields are provided with valid values
+  </Accordion>
+  
+  <Accordion title="400 Bad Request - Invalid Time Range">
+    ```json
+    {
+      "error": "End time must be after start time"
+    }
+    ```
+    **Cause**: The end_time is before or equal to start_time  
+    **Solution**: Ensure end_time is after start_time
+  </Accordion>
+  
+  <Accordion title="400 Bad Request - Invalid Team Member">
+    ```json
+    {
+      "error": "Team member does not belong to the specified workspace"
+    }
+    ```
+    **Cause**: The specified team_member_id doesn't exist in the workspace  
+    **Solution**: Verify the team member ID and ensure they belong to the workspace
+  </Accordion>
+  
+  <Accordion title="400 Bad Request - Invalid Project">
+    ```json
+    {
+      "error": "Project does not belong to the specified workspace"
+    }
+    ```
+    **Cause**: The specified project_id doesn't exist in the workspace  
+    **Solution**: Verify the project ID and ensure it belongs to the workspace
+  </Accordion>
+  
+  <Accordion title="400 Bad Request - Invalid Task">
+    ```json
+    {
+      "error": "Task does not belong to the specified project"
+    }
+    ```
+    **Cause**: The specified task_id doesn't exist in the project  
+    **Solution**: Verify the task ID and ensure it belongs to the specified project
+  </Accordion>
+  
+  <Accordion title="400 Bad Request - Invalid Tags">
+    ```json
+    {
+      "error": "One or more tags do not belong to the specified workspace"
+    }
+    ```
+    **Cause**: One or more tag IDs don't exist in the workspace  
+    **Solution**: Verify all tag IDs and ensure they belong to the workspace
+  </Accordion>
+  
+  <Accordion title="401 Unauthorized">
+    ```json
+    {
+      "error": "Unauthorized"
+    }
+    ```
+    **Cause**: Invalid or missing API key  
+    **Solution**: Verify your API key is correct and properly formatted
+  </Accordion>
+  
+  <Accordion title="500 Internal Server Error">
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+    **Cause**: Server-side error during time entry creation  
+    **Solution**: Retry the request or contact support if the issue persists
+  </Accordion>
+</AccordionGroup>
+
+## Zapier Integration
+
+### Zapier Action Configuration
+
+When using this endpoint in Zapier:
+
+1. **Workspace Selection**: Use the dynamic dropdown to select the target workspace
+2. **Required Fields**: `workspace_id`, `start_time`, `end_time`, and `billable` are required
+3. **Team Member Selection**: Optionally select a team member from the dynamic dropdown
+4. **Project Association**: Optionally select a project and task
+5. **Tag Assignment**: Optionally select tags for categorization
+
+### Sample Zapier Usage
+
+<Steps>
+  <Step title="Trigger Setup">
+    Set up a trigger (e.g., calendar event, form submission) that provides time entry information
+  </Step>
+  
+  <Step title="Action Configuration">
+    Configure the "Create Time Entry" action with:
+    - **Workspace**: Select your target workspace
+    - **Start Time**: Map from trigger data
+    - **End Time**: Map from trigger data
+    - **Billable**: Set billing status
+  </Step>
+  
+  <Step title="Association Setup">
+    Configure associations:
+    - **Team Member**: Select from available team members
+    - **Project**: Select from available projects
+    - **Task**: Select from available tasks (if project selected)
+    - **Tags**: Select relevant tags for categorization
+  </Step>
+  
+  <Step title="Test & Activate">
+    Test the Zap with sample data, then activate for live use
+  </Step>
+</Steps>
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Calendar Integration">
+    **Meeting Time Tracking**: Automatically create time entries when calendar events are created, ensuring all meetings and appointments are tracked for billing and reporting.
+  </Accordion>
+  
+  <Accordion title="Project Management">
+    **Task Completion Tracking**: Create time entries when tasks are completed in project management tools, maintaining accurate project time records.
+  </Accordion>
+  
+  <Accordion title="Client Billing">
+    **Automated Billing**: Create billable time entries based on client work activities, ensuring accurate client billing and invoicing.
+  </Accordion>
+  
+  <Accordion title="Team Productivity">
+    **Activity Tracking**: Create time entries for different types of work activities, providing insights into team productivity and time allocation.
+  </Accordion>
+</AccordionGroup>
+
+## Time Entry Best Practices
+
+### Time Format Guidelines
+
+- **ISO 8601 Format**: Always use ISO 8601 datetime format for consistency
+- **Timezone Handling**: Include timezone information in datetime strings
+- **Duration Calculation**: Let the system calculate duration from start/end times when possible
+
+### Description Standards
+
+- **Clear Descriptions**: Use descriptive text that explains what work was performed
+- **Consistent Format**: Follow consistent description patterns across your team
+- **Context Information**: Include relevant context about the work performed
+
+### Tagging Strategy
+
+- **Work Type Tags**: Use tags to categorize different types of work
+- **Project Phase Tags**: Tag entries by project phase or milestone
+- **Client-Specific Tags**: Use tags for client-specific work categorization
+
+## Important Notes
+
+<Warning>
+**Time Validation**: End time must be after start time. Invalid time ranges will result in a 400 error.
+</Warning>
+
+<Info>
+**Duration Calculation**: If duration is not provided, it's automatically calculated from start_time and end_time. The calculation is in seconds.
+</Info>
+
+<Check>
+**Best Practices**:
+- Always provide clear, descriptive text for time entries
+- Use consistent tagging strategies across your team
+- Validate time ranges before sending requests
+- Associate time entries with appropriate projects and tasks
+- Test with sample data before implementing in production
+- Handle error responses gracefully in your application
+- Consider timezone implications when working with distributed teams
+</Check>
+
+## Rate Limits
+
+- **Rate Limit**: 100 requests per minute per API key
+- **Burst Limit**: 10 requests per second
+- **Daily Limit**: 10,000 requests per day
+
+<Note>
+Rate limits are applied per API key and workspace combination. Contact support if you need higher limits for your use case.
+</Note>

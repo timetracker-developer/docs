@@ -43,6 +43,89 @@
             "pages": [
               "api-reference/health/check"
             ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              {
+                "group": "Zapier",
+                "pages": [
+                  {
+                    "group": "Triggers",
+                    "pages": [
+                      {
+                        "group": "New Client",
+                        "pages": [
+                          "api-reference/integrations/zapier/triggers/new-client/subscribe",
+                          "api-reference/integrations/zapier/triggers/new-client/fallback",
+                          "api-reference/integrations/zapier/triggers/new-client/unsubscribe"
+                        ]
+                      },
+                      {
+                        "group": "New Project",
+                        "pages": [
+                          "api-reference/integrations/zapier/triggers/new-project/subscribe",
+                          "api-reference/integrations/zapier/triggers/new-project/fallback",
+                          "api-reference/integrations/zapier/triggers/new-project/unsubscribe" 
+                        ]
+                      },
+                      {
+                        "group": "New Task",
+                        "pages": [
+                          "api-reference/integrations/zapier/triggers/new-task/subscribe",
+                          "api-reference/integrations/zapier/triggers/new-task/fallback",
+                          "api-reference/integrations/zapier/triggers/new-task/unsubscribe"
+                        ]
+                      },
+                      {
+                        "group": "Timer Started",
+                        "pages": [
+                          "api-reference/integrations/zapier/triggers/timer-started/subscribe",
+                          "api-reference/integrations/zapier/triggers/timer-started/fallback",
+                          "api-reference/integrations/zapier/triggers/timer-started/unsubscribe"
+                        ]
+                      },
+                      {
+                        "group": "Timer Stopped",
+                        "pages": [
+                          "api-reference/integrations/zapier/triggers/timer-stopped/subscribe",
+                          "api-reference/integrations/zapier/triggers/timer-stopped/fallback",
+                          "api-reference/integrations/zapier/triggers/timer-stopped/unsubscribe"
+                        ]
+                      },
+                      {
+                        "group": "Manual Time Entry",
+                        "pages": [
+                          "api-reference/integrations/zapier/triggers/manual-entry/subscribe",
+                          "api-reference/integrations/zapier/triggers/manual-entry/fallback",
+                          "api-reference/integrations/zapier/triggers/manual-entry/unsubscribe"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Finds",
+                    "pages": [
+                      "api-reference/integrations/zapier/find/clients/route",
+                      "api-reference/integrations/zapier/find/projects/route",
+                      "api-reference/integrations/zapier/find/tasks/route",
+                      "api-reference/integrations/zapier/find/tags/route",
+                      "api-reference/integrations/zapier/find/time-entries/route"
+                    ]
+                  },
+                  {
+                    "group": "Creates",
+                    "pages": [
+                      "api-reference/integrations/zapier/create/clients/route",
+                      "api-reference/integrations/zapier/create/projects/route",
+                      "api-reference/integrations/zapier/create/tasks/route",
+                      "api-reference/integrations/zapier/create/tags/route",
+                      "api-reference/integrations/zapier/create/time-entries/route"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

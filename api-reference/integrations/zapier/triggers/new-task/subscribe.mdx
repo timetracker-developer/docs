@@ -1,0 +1,410 @@
+---
+title: "Subscribe to Task Webhooks"
+description: "Set up real-time webhook notifications for new task creation events in your Zapier integrations."
+---
+
+## Overview
+
+Subscribe to webhook events to receive instant notifications when tasks are created in your workspace. This endpoint enables Zapier's "New Task" trigger integration, automatically forwarding task data to your connected workflows.
+
+<Note>
+This endpoint is primarily designed for Zapier integrations but can be used with any webhook service that follows the same pattern.
+</Note>
+
+## Authentication
+
+All requests require a valid API key in the Authorization header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Subscribe to Events
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://app.timetracker.in/api/integrations/zapier/webhooks/subscribe' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -d '{
+    "url": "https://hooks.zapier.com/hooks/catch/123456/abcdef/",
+    "events": ["TASK_CREATED"],
+    "description": "Zapier webhook for new tasks"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://app.timetracker.in/api/integrations/zapier/webhooks/subscribe', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    url: 'https://hooks.zapier.com/hooks/catch/123456/abcdef/',
+    events: ['TASK_CREATED'],
+    description: 'Zapier webhook for new tasks'
+  })
+});
+```
+
+```python Python
+import requests
+
+url = "https://app.timetracker.in/api/integrations/zapier/webhooks/subscribe"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+}
+data = {
+    "url": "https://hooks.zapier.com/hooks/catch/123456/abcdef/",
+    "events": ["TASK_CREATED"],
+    "description": "Zapier webhook for new tasks"
+}
+
+response = requests.post(url, headers=headers, json=data)
+```
+
+</CodeGroup>
+
+### Request Body
+
+<ParamField body="url" type="string" required>
+  The destination URL for webhook notifications. Must be a valid HTTPS URL format.
+  
+  **Example:** `https://hooks.zapier.com/hooks/catch/123456/abcdef/`
+</ParamField>
+
+<ParamField body="events" type="string[]" required>
+  Array of event types to monitor. Currently supports:
+  - `TASK_CREATED` - Triggered when a new task is added
+  
+  **Example:** `["TASK_CREATED"]`
+</ParamField>
+
+<ParamField body="description" type="string" optional>
+  Optional description to identify this webhook in your dashboard.
+  
+  **Example:** `"Zapier integration for task notifications"`
+</ParamField>
+
+## Response
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "webhook": {
+    "id": "wh_1234567890abcdef",
+    "url": "https://hooks.zapier.com/hooks/catch/123456/abcdef/",
+    "events": ["TASK_CREATED"],
+    "status": "ACTIVE"
+  }
+}
+```
+
+<ResponseField name="success" type="boolean">
+  Confirms successful webhook creation.
+</ResponseField>
+
+<ResponseField name="webhook" type="object">
+  The created webhook subscription details.
+  
+  <Expandable title="Webhook Object Properties">
+    <ResponseField name="id" type="string">
+      Unique webhook identifier for future reference.
+    </ResponseField>
+    
+    <ResponseField name="url" type="string">
+      The registered webhook endpoint URL.
+    </ResponseField>
+    
+    <ResponseField name="events" type="string[]">
+      Confirmed list of subscribed event types.
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Webhook status - `ACTIVE` for new subscriptions.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### Error Responses
+
+<AccordionGroup>
+  <Accordion title="400 Bad Request - Invalid URL">
+    ```json
+    {
+      "error": "Invalid URL format"
+    }
+    ```
+    The provided URL doesn't meet the required format standards.
+  </Accordion>
+  
+  <Accordion title="400 Bad Request - Missing Fields">
+    ```json
+    {
+      "error": "URL and events array are required"
+    }
+    ```
+    Required parameters `url` or `events` are missing from the request.
+  </Accordion>
+  
+  <Accordion title="401 Unauthorized">
+    ```json
+    {
+      "error": "Unauthorized"
+    }
+    ```
+    Invalid or missing API key in the Authorization header.
+  </Accordion>
+  
+  <Accordion title="500 Internal Server Error">
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+    An unexpected server error occurred. Try again or contact support.
+  </Accordion>
+</AccordionGroup>
+
+## Webhook Payload Structure
+
+When a task is created, your webhook endpoint receives a POST request with this payload:
+
+```json
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Implement user authentication",
+  "description": "Add user authentication system to the mobile app",
+  "project": {
+    "id": "456e7890-e89b-12d3-a456-426614174001",
+    "name": "Mobile App Development"
+  },
+  "client": {
+    "id": "789e0123-e89b-12d3-a456-426614174002",
+    "name": "Acme Corporation",
+    "email": "contact@acme.com",
+    "phone": "+1-555-0123",
+    "status": "active",
+    "type": "enterprise"
+  },
+  "workspace": {
+    "id": "abc12345-e89b-12d3-a456-426614174003",
+    "name": "Development Team"
+  },
+  "teamMembers": [
+    {
+      "id": "def67890-e89b-12d3-a456-426614174004",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "avatar": "https://example.com/avatar.jpg",
+      "designation": "Senior Developer",
+      "department": "Engineering",
+      "status": "active",
+      "role": {
+        "id": "ghi11111-e89b-12d3-a456-426614174005",
+        "name": "Developer",
+        "description": "Software development role"
+      },
+      "billableRate": 75.0,
+      "currency": "USD"
+    }
+  ],
+  "status": "todo",
+  "priority": "high",
+  "estimatedHours": 16.0,
+  "dueDate": "2024-01-25T23:59:59.000Z",
+  "createdAt": "2024-01-15T10:00:00.000Z",
+  "updatedAt": "2024-01-15T10:00:00.000Z"
+}
+```
+
+### Payload Fields
+
+<ResponseField name="id" type="string">
+  Unique task identifier
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Task name
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Task description
+</ResponseField>
+
+<ResponseField name="project" type="object">
+  Associated project information
+  
+  <Expandable title="Project Properties">
+    <ResponseField name="id" type="string">
+      Project unique identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Project display name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="client" type="object">
+  Associated client information
+  
+  <Expandable title="Client Properties">
+    <ResponseField name="id" type="string">
+      Client unique identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Client name
+    </ResponseField>
+    
+    <ResponseField name="email" type="string">
+      Client email address
+    </ResponseField>
+    
+    <ResponseField name="phone" type="string">
+      Client phone number
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Client status
+    </ResponseField>
+    
+    <ResponseField name="type" type="string">
+      Client type (enterprise, company, individual, etc.)
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="workspace" type="object">
+  Associated workspace information
+  
+  <Expandable title="Workspace Properties">
+    <ResponseField name="id" type="string">
+      Workspace unique identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Workspace display name
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="teamMembers" type="array">
+  Array of team members assigned to the task
+  
+  <Expandable title="Team Member Properties">
+    <ResponseField name="id" type="string">
+      Team member unique identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Team member name
+    </ResponseField>
+    
+    <ResponseField name="email" type="string">
+      Team member email address
+    </ResponseField>
+    
+    <ResponseField name="avatar" type="string">
+      URL to team member avatar image
+    </ResponseField>
+    
+    <ResponseField name="designation" type="string">
+      Team member job title
+    </ResponseField>
+    
+    <ResponseField name="department" type="string">
+      Team member department
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Team member status
+    </ResponseField>
+    
+    <ResponseField name="role" type="object">
+      Team member role information
+      
+      <Expandable title="Role Properties">
+        <ResponseField name="id" type="string">
+          Role unique identifier
+        </ResponseField>
+        
+        <ResponseField name="name" type="string">
+          Role name
+        </ResponseField>
+        
+        <ResponseField name="description" type="string">
+          Role description
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+    
+    <ResponseField name="billableRate" type="number">
+      Team member hourly billable rate
+    </ResponseField>
+    
+    <ResponseField name="currency" type="string">
+      Currency for billable rate
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Task status (`todo`, `in_progress`, `completed`, `cancelled`, etc.)
+</ResponseField>
+
+<ResponseField name="priority" type="string">
+  Task priority (`low`, `medium`, `high`, `urgent`)
+</ResponseField>
+
+<ResponseField name="estimatedHours" type="number">
+  Estimated hours to complete the task
+</ResponseField>
+
+<ResponseField name="dueDate" type="string">
+  Task due date in ISO 8601 format
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 timestamp of task creation
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  ISO 8601 timestamp of last update
+</ResponseField>
+
+## Zapier Integration Guide
+
+### Setting Up the Trigger
+
+1. **Automatic Setup**: Zapier automatically calls this endpoint when you configure a "New Task" trigger
+2. **Event Subscription**: The integration subscribes to `TASK_CREATED` events
+3. **Data Flow**: New task data is instantly sent to your Zap workflow
+
+<Tip>
+Zapier automatically provides the webhook URL via `bundle.targetUrl` when setting up the trigger. You don't need to manually generate URLs.
+</Tip>
+
+## Important Notes
+
+<Warning>
+**Workspace Scope**: Webhook subscriptions are tied to your specific API key and workspace. Ensure you're using the correct credentials for your intended workspace.
+</Warning>
+
+<Info>
+**Data Format**: The webhook payload structure matches the standard task data format used across all task API endpoints, ensuring consistency in your integrations.
+</Info>
+
+<Check>
+**Best Practices**: 
+- Validate webhook signatures if implementing custom security
+- Implement proper error handling for webhook delivery failures  
+- Use HTTPS endpoints only for security
+- Test your webhook endpoint before subscribing
+</Check>
