@@ -30,6 +30,15 @@
                   "integrations/zapier/triggers",
                   "integrations/zapier/actions"
                 ]
+              },
+              {
+                "group": "Slack",
+                "pages": [
+                  "integrations/slack/getting-started",
+                  "integrations/slack/commands",
+                  "integrations/slack/examples",
+                  "integrations/slack/troubleshooting"
+                ]
               }
             ]
           }

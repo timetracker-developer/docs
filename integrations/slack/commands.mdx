@@ -1,0 +1,350 @@
+---
+title: "Commands Reference"
+description: "Complete reference for all Slack slash commands, parameters, and usage syntax for time tracking"
+---
+
+## Overview
+
+The Timetracker Slack integration provides a comprehensive set of slash commands to manage your time tracking directly from Slack. All commands start with `/timetracker` and support various parameters for detailed time entry management.
+
+---
+
+## Basic Commands
+
+### Start Timer
+
+Start a new timer with an optional description.
+
+<ParamField path="start" type="string">
+Start a new timer with an optional description.
+
+**Usage**: `/timetracker start description:"Description here"`
+**Example**: `/timetracker start description:"Client meeting"`
+</ParamField>
+
+**Syntax:**
+```bash
+/timetracker start [description:"Description text"]
+```
+
+**Parameters:**
+- `description` (optional): Brief description of what you're working on (use format `description:"Your text"`)
+
+**Examples:**
+```bash
+/timetracker start description:"Working on documentation"
+/timetracker start description:"Team standup meeting"
+/timetracker start
+```
+
+### Stop Timer
+
+Stop the currently running timer.
+
+<ParamField path="stop" type="string">
+Stop the currently running timer.
+
+**Usage**: `/timetracker stop`
+</ParamField>
+
+**Syntax:**
+```bash
+/timetracker stop
+```
+
+**Examples:**
+```bash
+/timetracker stop
+```
+
+### Log Time
+
+Log time manually without starting a timer.
+
+<ParamField path="log" type="string">
+Log time manually without starting a timer.
+
+**Usage**: `/timetracker log {hours} [parameters]`
+**Example**: `/timetracker log 2.5 project:"Internal"`
+</ParamField>
+
+**Syntax:**
+```bash
+/timetracker log {hours}[h] [parameters...]
+```
+
+**Parameters:**
+- `hours` (required): Number of hours to log (supports decimals like 2.5)
+- `h` (optional): Suffix for hours (e.g., "2h" or "2.5h")
+- Additional parameters (optional): project, task, description, tags
+
+**Examples:**
+```bash
+/timetracker log 2.5
+/timetracker log 1.5h
+/timetracker log 3 project:"Website Redesign"
+```
+
+### Check Status
+
+Check your current timer status and recent entries.
+
+<ParamField path="status" type="string">
+Check your current timer status and recent entries.
+
+**Usage**: `/timetracker status`
+</ParamField>
+
+**Syntax:**
+```bash
+/timetracker status
+```
+
+**Examples:**
+```bash
+/timetracker status
+```
+
+### Get Help
+
+Display help information and command examples.
+
+<ParamField path="help" type="string">
+Display help information and command examples.
+
+**Usage**: `/timetracker help`
+</ParamField>
+
+**Syntax:**
+```bash
+/timetracker help
+```
+
+**Examples:**
+```bash
+/timetracker help
+```
+
+---
+
+## Advanced Parameters
+
+All commands support these optional parameters for detailed time tracking:
+
+### Project Parameter
+
+Associate time with a specific project.
+
+<ParamField path="project" type="string">
+Associate time with a specific project.
+
+**Usage**: `project:"Project Name"`
+**Example**: `project:"ACME Corp Website"`
+</ParamField>
+
+**Syntax:**
+```bash
+project:"Project Name"
+```
+
+**Examples:**
+```bash
+project:"Client Website"
+project:"Internal Tools"
+project:"Marketing Campaign"
+```
+
+### Task Parameter
+
+Specify a task within a project (requires project parameter).
+
+<ParamField path="task" type="string">
+Specify a task within a project (requires project parameter).
+
+**Usage**: `task:"Task Name"`
+**Example**: `task:"Homepage Design"`
+</ParamField>
+
+**Syntax:**
+```bash
+task:"Task Name"
+```
+
+**Note**: Task parameter requires a project to be specified.
+
+**Examples:**
+```bash
+task:"Homepage Design"
+task:"API Integration"
+task:"User Research"
+```
+
+### Description Parameter
+
+Add detailed description to your time entry.
+
+<ParamField path="description" type="string">
+Add detailed description to your time entry.
+
+**Usage**: `description:"Detailed description"`
+**Example**: `description:"Fixed responsive layout issues"`
+</ParamField>
+
+**Syntax:**
+```bash
+description:"Detailed description"
+```
+
+**Examples:**
+```bash
+description:"Fixed responsive layout issues"
+description:"Discussed Q4 roadmap with stakeholders"
+description:"Debugged payment gateway integration"
+```
+
+### Tags Parameter
+
+Add tags for better organization and filtering.
+
+<ParamField path="tags" type="string">
+Add tags for better organization and filtering.
+
+**Usage**: `tags:"tag1,tag2,tag3"`
+**Example**: `tags:"urgent,frontend,bugfix"`
+</ParamField>
+
+**Syntax:**
+```bash
+tags:"tag1,tag2,tag3"
+```
+
+**Common tag categories:**
+- **Priority**: `urgent`, `high`, `low`
+- **Type**: `meeting`, `development`, `design`, `research`
+- **Technology**: `frontend`, `backend`, `mobile`, `api`
+- **Status**: `bugfix`, `feature`, `maintenance`
+
+**Examples:**
+```bash
+tags:"urgent,frontend"
+tags:"meeting,planning"
+tags:"backend,api,performance"
+```
+
+---
+
+## Command Combinations
+
+### Start Command with Parameters
+
+```bash
+# Basic start
+/timetracker start description:"Working on documentation"
+
+# Start with project
+/timetracker start project:"Client Website" description:"Homepage updates"
+
+# Start with project and task
+/timetracker start project:"E-commerce" task:"Checkout" description:"Payment integration"
+
+# Start with all parameters
+/timetracker start project:"Marketing" task:"Social Media" description:"Instagram campaign planning" tags:"urgent,social"
+```
+
+### Log Command with Parameters
+
+```bash
+# Basic log
+/timetracker log 2.5
+
+# Log with project
+/timetracker log 2.0 project:"Internal Tools"
+
+# Log with project and task
+/timetracker log 1.5 project:"Client XYZ" task:"Code review"
+
+# Log with all parameters
+/timetracker log 3.5 project:"Development" task:"Backend" description:"API optimization" tags:"performance,backend"
+```
+
+---
+
+## Parameter Rules
+
+### Required vs Optional
+
+- **Required**: `hours` (for log command only)
+- **Optional**: All other parameters (project, task, description, tags)
+
+### Parameter Dependencies
+
+- **Task parameter**: Requires a project to be specified
+- **All other parameters**: Can be used independently
+
+### Parameter Formatting
+
+- **Quotes**: Use double quotes around parameter values with spaces
+- **Commas**: Separate multiple tags with commas (no spaces)
+- **Case sensitivity**: Parameters are case-insensitive
+- **Spaces**: Avoid spaces around the colon in parameter syntax
+
+### Examples of Correct Formatting
+
+```bash
+# ✅ Correct
+/timetracker start project:"Client Website" task:"Homepage" tags:"urgent,frontend"
+
+# ❌ Incorrect - missing quotes
+/timetracker start project:Client Website
+
+# ❌ Incorrect - spaces around colon
+/timetracker start project : "Client Website"
+
+# ❌ Incorrect - spaces in tags
+/timetracker start tags:"urgent, frontend"
+```
+
+---
+
+## Error Handling
+
+### Common Error Messages
+
+**"Empty command"**
+- **Cause**: No parameters provided
+- **Solution**: Add a description or use `/timetracker help`
+
+**"Invalid log format"**
+- **Cause**: Missing or invalid hours parameter
+- **Solution**: Use format like `/timetracker log 2.5` or `/timetracker log 2.5h`
+
+**"Project required for tasks"**
+- **Cause**: Task parameter used without project
+- **Solution**: Add project parameter: `project:"Project Name" task:"Task Name"`
+
+**"User not mapped"**
+- **Cause**: Slack user not connected to Timetracker account
+- **Solution**: Complete user mapping in Settings → Integrations → Slack → Configure
+
+### Getting Help
+
+If you encounter issues:
+
+1. Run `/timetracker help` for command syntax
+2. Check your user mapping in Timetracker settings
+3. Verify the Slack app is properly installed
+4. Contact support at support@timetracker.in
+
+---
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Command Examples" icon="code" href="/integrations/slack/examples">
+    See practical examples and real-world usage scenarios for all commands.
+  </Card>
+
+  <Card title="Interactive Features" icon="mouse-pointer" href="/integrations/slack/features">
+    Learn about buttons, modals, and other interactive elements.
+  </Card>
+</CardGroup>

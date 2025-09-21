@@ -1,0 +1,310 @@
+---
+title: "Zapier Actions"
+description: "Learn about all available actions in Timetracker that can create and manage data through your Zaps"
+---
+
+## Overview
+
+Timetracker provides five powerful actions that allow your Zaps to create and manage data in your account. These actions enable you to automate data entry, project management, and time tracking workflows by creating new records from external systems.
+
+<Info>
+All actions are authenticated using your API key and provide real-time data creation in Timetracker. They support dynamic dropdowns for related data and include comprehensive validation.
+</Info>
+
+---
+
+## Available Actions
+
+### 1. Create Client
+
+**What it does**: Creates a new client in your Timetracker workspace.
+
+**Use cases**:
+- **CRM Integration**: Automatically create clients from Salesforce, HubSpot, or Pipedrive leads when they reach a certain stage in your sales pipeline
+- **Form Submissions**: Create clients from website contact forms, lead magnets, or consultation booking forms to streamline lead capture
+- **Event Management**: Add attendees from events, webinars, or conferences as new clients for follow-up and relationship building
+- **Email Marketing**: Convert email subscribers to clients automatically when they engage with specific campaigns or reach certain milestones
+- **Social Media**: Create clients from social media inquiries, mentions, or direct messages to capture all potential business opportunities
+- **Referral Programs**: Automatically add referred clients to your system when referrals are submitted through your referral tracking system
+
+**Required Fields**:
+- **Client Name**: The name of the client (individual or company)
+- **Workspace**: The workspace to associate with the client
+
+**Optional Fields**:
+- **Type**: Individual or Company (defaults to Individual)
+- **Status**: Active or Inactive (defaults to Active)
+- **Email**: Client's email address
+- **Phone**: Client's phone number
+- **Address**: Client's physical address
+- **Notes**: Additional information about the client
+- **Currency**: Default billing currency (defaults to USD)
+
+---
+
+### 2. Create Project
+
+**What it does**: Creates a new project in your specified workspace.
+
+**Use cases**:
+- **Project Management**: Automatically create projects from Asana, Trello, or Monday.com when new project boards are created or when projects reach certain milestones
+- **Client Onboarding**: Generate projects when new clients are added to your system, ensuring every client has an associated project for time tracking
+- **Sales Pipeline**: Create projects from won deals in your CRM, automatically setting up project structures for successful sales
+- **Event Planning**: Set up projects for upcoming events, campaigns, or product launches with proper timelines and resource allocation
+- **Service Requests**: Generate projects from customer service tickets, support requests, or maintenance requests to track resolution time
+- **Contract Management**: Create projects when contracts are signed, ensuring all contractual work is properly tracked and billed
+
+**Required Fields**:
+- **Project Name**: The name of the project to create
+- **Workspace**: The workspace where the project will be created
+
+**Optional Fields**:
+- **Client**: Optional client to assign to this project
+- **Description**: Detailed project description
+- **Status**: Active, Completed, or On Hold (defaults to Active)
+- **Is Private**: Whether the project is private or public
+- **Default Billable Rate**: Hourly rate for this project
+- **Default Billable**: Whether time entries default to billable
+- **Estimated Hours**: Estimated time to complete the project
+- **Estimated Budget**: Estimated project budget
+
+---
+
+### 3. Create Task
+
+**What it does**: Creates a new task within a specified project.
+
+**Use cases**:
+- **Task Management**: Automatically create tasks from external project management tools like Jira, ClickUp, or Notion when new items are added
+- **Email Processing**: Generate tasks from important emails, support tickets, or customer inquiries to ensure nothing falls through the cracks
+- **Calendar Events**: Create tasks from calendar appointments, meetings, or deadlines to maintain task lists alongside your schedule
+- **Customer Feedback**: Generate tasks from customer feedback, feature requests, or bug reports to prioritize product improvements
+- **Bug Tracking**: Create tasks from bug reports, issue tracking systems, or quality assurance findings to maintain development workflows
+- **Content Planning**: Generate tasks from content calendars, editorial plans, or marketing campaign schedules to streamline content creation
+
+**Required Fields**:
+- **Task Name**: The name of the task
+- **Project**: The project to create the task in
+
+**Optional Fields**:
+- **Workspace**: The workspace for the task
+- **Description**: Detailed task description
+- **Status**: Todo, In Progress, or Completed (defaults to Todo)
+- **Priority**: Low, Medium, or High (defaults to Medium)
+- **Assignees**: Team members to assign to the task
+- **Estimated Hours**: Estimated time to complete the task
+- **Actual Hours**: Actual time spent on the task
+- **Due Date**: When the task is due
+
+---
+
+### 4. Create Time Entry
+
+**What it does**: Creates a new time entry for tracking work hours.
+
+**Use cases**:
+- **Calendar Integration**: Log time automatically from calendar events, meetings, or appointments to ensure all work time is captured
+- **Project Management**: Create time entries when tasks are completed, milestones are reached, or projects are delivered
+- **Time Tracking**: Log time from external time tracking tools, mobile apps, or browser extensions for comprehensive time management
+- **Meeting Tracking**: Automatically log meeting time, preparation time, and follow-up time to account for all project-related activities
+- **Travel Time**: Log travel time for client visits, site inspections, or business trips to ensure proper billing and expense tracking
+- **Overtime Tracking**: Record overtime hours from HR systems, payroll software, or time clock systems for compliance and billing purposes
+
+**Required Fields**:
+- **Workspace**: The workspace for the time entry
+- **Team Member**: The team member ID for the time entry
+- **Start Time**: Start time of the time entry
+- **End Time**: End time of the time entry
+
+**Optional Fields**:
+- **Project**: The project for the time entry
+- **Task**: The specific task for the time entry
+- **Tags**: Tags to associate with the time entry
+- **Date**: Date when the time entry occurred
+- **Description**: Description of the work performed
+- **Billable**: Whether this time entry is billable (defaults to true)
+
+---
+
+### 5. Create Tag
+
+**What it does**: Creates a new tag in your specified workspace.
+
+**Use cases**:
+- **Project Categorization**: Automatically create tags for different project types, industries, or service categories to improve organization
+- **Client Segmentation**: Generate tags for client categories, industries, or market segments to enable better client management and reporting
+- **Workflow Management**: Create tags for different workflow stages, approval processes, or quality checkpoints to track project progress
+- **Priority Management**: Generate tags for priority levels, urgency indicators, or SLA requirements to ensure proper task prioritization
+- **Department Organization**: Create tags for different departments, teams, or functional areas to enable cross-functional project tracking
+- **Custom Classification**: Generate tags for custom categorization needs, compliance requirements, or industry-specific classifications
+
+**Required Fields**:
+- **Tag Name**: The name of the tag to create
+- **Workspace**: The workspace where the tag will be created
+
+**Optional Fields**:
+- **Color**: The color for the tag (hex code or color name)
+- **Description**: Optional description for the tag
+
+---
+
+## Setting Up Actions
+
+### Step 1: Choose Your Action
+
+1. In Zapier, create a new Zap
+2. Select your trigger (or start with a manual trigger)
+3. Search for **Timetracker** as the action app
+4. Choose the specific action you want to use
+
+### Step 2: Configure Action Settings
+
+<Steps>
+<Step title="Select Action Type">
+  Choose the specific action from the list above based on what you want to create.
+  
+  <Tip>
+  Start with simple actions like creating tags or clients before moving to more complex ones like projects and tasks.
+  </Tip>
+</Step>
+
+<Step title="Map Required Fields">
+  Fill in all required fields with data from your trigger or manual input.
+  
+  <Warning>
+  Required fields must be filled for the action to succeed. Use data from previous steps when possible.
+  </Warning>
+</Step>
+
+<Step title="Configure Optional Fields">
+  Set optional fields based on your needs and available data.
+  
+  <Note>
+  Optional fields help provide more context and better organization in Timetracker.
+  </Note>
+</Step>
+</Steps>
+
+---
+
+## Dynamic Dropdowns
+
+Timetracker actions include dynamic dropdowns that automatically populate with your account data:
+
+### Available Dynamic Lists
+
+- **Workspaces**: All workspaces in your account
+- **Clients**: All clients in the selected workspace
+- **Projects**: All projects in the selected workspace
+- **Tasks**: All tasks in the selected project
+- **Team Members**: All team members in the selected workspace
+- **Tags**: All tags in the selected workspace
+
+### How to Use Dynamic Fields
+
+1. **Select the field type**: Choose "Dynamic" when setting up the field
+2. **Choose the list**: Select the appropriate dynamic list (e.g., `dropdown_list_workspaces.id.name`)
+3. **Map the data**: The dropdown will automatically populate with your account data
+4. **Test the connection**: Verify that the correct data is being selected
+
+<Info>
+Dynamic dropdowns ensure data consistency and prevent errors from manual data entry.
+</Info>
+
+---
+
+## Data Validation and Error Handling
+
+### Input Validation
+
+All actions include comprehensive validation:
+
+- **Required Fields**: Must be provided for the action to succeed
+- **Data Types**: Fields are validated for correct data types (string, number, boolean, datetime)
+- **Choices**: Dropdown fields limit selections to valid options
+- **Format Validation**: Email, date, and time fields are validated for proper format
+
+### Error Handling
+
+<AccordionGroup>
+<Accordion title="Validation Errors">
+**Common Issues**:
+- Missing required fields
+- Invalid data types
+- Invalid choice selections
+
+**Solutions**:
+- Ensure all required fields are mapped
+- Check data type compatibility
+- Verify dropdown selections are valid
+</Accordion>
+
+<Accordion title="Authentication Errors">
+**Common Issues**:
+- Invalid or expired API key
+- Insufficient permissions
+
+**Solutions**:
+- Verify your API key is correct
+- Check that your account has the necessary permissions
+- Regenerate your API key if needed
+</Accordion>
+
+<Accordion title="Data Relationship Errors">
+**Common Issues**:
+- Invalid workspace, client, or project IDs
+- Missing related data
+
+**Solutions**:
+- Verify that referenced data exists
+- Check that IDs are correctly mapped
+- Ensure data relationships are valid
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+### Action Selection
+
+- **Start simple**: Begin with basic actions like creating tags or clients
+- **Build complexity**: Gradually add more complex actions as you become comfortable
+- **Consider dependencies**: Some actions depend on others (e.g., tasks need projects)
+
+### Data Mapping
+
+- **Use dynamic fields**: Leverage dynamic dropdowns for data consistency
+- **Map all required fields**: Ensure all required fields are properly populated
+- **Validate data**: Test with sample data before going live
+
+### Workflow Design
+
+- **Single purpose**: Each Zap should have one clear objective
+- **Error handling**: Include fallback actions for failed executions
+- **Testing**: Test thoroughly with real data before activating
+
+---
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Triggers Reference" icon="zap" href="/integrations/zapier/triggers">
+    Learn about all available triggers that can start your automation workflows.
+  </Card>
+
+  <Card title="Example Zaps" icon="lightbulb" href="/integrations/zapier/examples">
+    Explore real-world examples of how to use these actions effectively.
+  </Card>
+</CardGroup>
+
+### Popular Action Combinations
+
+- **Create Client → Create Project**: Automate client onboarding
+- **Create Project → Create Task**: Set up complete project workflows
+- **Create Task → Create Time Entry**: Track work automatically
+- **Create Tag → Apply to Projects**: Organize projects automatically
+
+### Need Help?
+
+- Contact support at support@timetracker.in

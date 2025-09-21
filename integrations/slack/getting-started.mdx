@@ -1,0 +1,155 @@
+---
+title: "Getting Started"
+description: "Connect Timetracker with Slack to track time directly from your team's communication hub using slash commands and interactive buttons"
+---
+
+## Overview & Benefits
+
+Connect [Timetracker](https://timetracker.in) with [Slack](https://slack.com) to track time without leaving your team's communication platform. Use slash commands, interactive buttons, and automated notifications to streamline your time tracking workflow.
+
+### What You Can Do
+
+- **Start Timers**: Begin time tracking with `/timetracker start` commands
+- **Stop Timers**: End active timers with `/timetracker stop` commands
+- **Log Time**: Record time entries manually with `/timetracker log` commands
+
+### Key Benefits
+
+- ⚡ **Track time instantly** without switching apps
+- 📱 **Mobile-friendly** commands work on all devices
+- 🎯 **Project-focused** tracking with task organization
+- 🔄 **Real-time sync** with your main Timetracker dashboard
+
+---
+
+## Quick Setup Guide
+
+### Step 1: Install the Slack App
+
+1. Make sure you have a free or paid [Timetracker](https://app.timetracker.in/sign-up) account
+2. Navigate to **Settings** → **Integrations** → **Slack** → **Connect**
+3. Follow the OAuth flow to authorize Timetracker in your Slack workspace
+
+<Info>
+The Slack app requires workspace admin approval. If you don't have admin rights, ask your workspace administrator to install the app.
+</Info>
+
+### Step 2: Configure User Mapping
+
+<Warning>
+**Critical**: Unmapped users will not be able to use the `/timetracker` commands. You must complete this step for the integration to work.
+</Warning>
+
+1. Navigate to **Settings** → **Integrations** → **Slack** → **Configure** button
+2. This will take you to the `/slack-config` page where you'll see three sections to manage user connections:
+
+- **Unmapped Slack Users**: Find your Slack username in this list
+- **Unmapped Team Members**: Find your Timetracker account in this list  
+- **Currently Mapped Users**: Shows successfully connected accounts
+
+**How user mapping works:**
+- Each Slack user must be linked to a corresponding Timetracker team member account
+- This mapping tells the system which Timetracker account should receive the time entries from each Slack user
+- Without this mapping, commands will fail because the system doesn't know where to save the time data
+
+**To connect your accounts:**
+1. Use the dropdown menu next to your Slack username to select your corresponding Timetracker account
+2. Click **Sync Users** to refresh the user list if needed
+3. Test the connection by running `/timetracker help` in any Slack channel
+
+<Check>
+**Success**: You'll see the help message with available commands when the connection is working properly.
+</Check>
+
+### Step 3: Try Your First Command
+
+Let's start with a simple time tracking command:
+
+**Example: Start a timer**
+
+1. In any Slack channel, type: `/timetracker start description:"Working on project documentation"`
+2. Press Enter to execute the command
+3. You'll see a confirmation message with your active timer
+4. Check your Timetracker dashboard to see the running timer
+
+### Step 4: Explore More Commands
+
+Try these essential commands to get familiar with the integration:
+
+<CodeGroup>
+```bash Start Timer
+/timetracker start description:"Meeting with client"
+```
+
+```bash Stop Timer
+/timetracker stop
+```
+
+```bash Log Time
+/timetracker log 2.5 project:"Website Redesign"
+```
+
+```bash Check Status
+/timetracker status
+```
+
+```bash Get Help
+/timetracker help
+```
+</CodeGroup>
+
+---
+
+## What's Next?
+
+Now that you have the basics working, explore these features:
+
+<CardGroup cols={2}>
+  <Card title="Commands Reference" icon="book" href="/integrations/slack/commands">
+    Complete reference for all available commands and parameters.
+  </Card>
+
+  <Card title="Command Examples" icon="code" href="/integrations/slack/examples">
+    See practical examples and real-world usage scenarios.
+  </Card>
+
+  <Card title="Interactive Features" icon="mouse-pointer" href="/integrations/slack/features">
+    Learn about buttons, modals, and other interactive elements.
+  </Card>
+
+  <Card title="Best Practices" icon="lightbulb" href="/integrations/slack/troubleshooting">
+    Tips for effective time tracking and troubleshooting common issues.
+  </Card>
+</CardGroup>
+
+### Quick Start Commands
+
+Try these essential commands to get familiar with the integration:
+
+<CodeGroup>
+```bash Start Timer
+/timetracker start description:"Meeting with client"
+```
+
+```bash Stop Timer
+/timetracker stop
+```
+
+```bash Log Time
+/timetracker log 2.5 project:"Website Redesign"
+```
+
+```bash Check Status
+/timetracker status
+```
+
+```bash Get Help
+/timetracker help
+```
+</CodeGroup>
+
+### Need Help?
+
+- Contact our support team at support@timetracker.in
+- Check the [authentication guide](/integrations/slack/authentication) for setup issues
+- Review the [troubleshooting guide](/integrations/slack/troubleshooting) for common problems

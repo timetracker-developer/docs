@@ -1,0 +1,385 @@
+---
+title: "Command Examples"
+description: "Practical examples and real-world usage scenarios for Slack time tracking commands"
+---
+
+## Overview
+
+This page provides practical examples of how to use Slack time tracking commands in real-world scenarios. Each example includes the command, context, and expected outcome.
+
+---
+
+## Simple Time Tracking
+
+### Basic Timer Operations
+
+<CodeGroup>
+```bash Start Timer
+/timetracker start description:"Working on documentation"
+```
+**Context**: Starting work on a documentation task
+**Result**: Timer begins, shows confirmation message
+
+```bash Stop Timer
+/timetracker stop
+```
+**Context**: Finishing current work session
+**Result**: Timer stops, time is logged to your account
+
+```bash Check Status
+/timetracker status
+```
+**Context**: Checking current timer and recent entries
+**Result**: Shows active timer or "No active timer" plus recent entries
+</CodeGroup>
+
+### Manual Time Logging
+
+<CodeGroup>
+```bash Log Basic Time
+/timetracker log 1.5
+```
+**Context**: Logging time for work already completed
+**Result**: 1.5 hours added to your time log
+
+```bash Log with Description
+/timetracker log 2.0 description:"Client call and follow-up"
+```
+**Context**: Logging time for a client meeting
+**Result**: 2 hours logged with description
+</CodeGroup>
+
+---
+
+## Project-Based Tracking
+
+### Client Work Examples
+
+<CodeGroup>
+```bash Start Client Project
+/timetracker start project:"ACME Corp Website" description:"Homepage redesign"
+```
+**Context**: Starting work on a client's website project
+**Result**: Timer starts with project association
+
+```bash Log Client Time
+/timetracker log 3.5 project:"ACME Corp Website" description:"Completed responsive design"
+```
+**Context**: Logging time spent on client work
+**Result**: Time logged to specific client project
+
+```bash Start with Task
+/timetracker start project:"ACME Corp Website" task:"Checkout Flow" description:"Payment integration"
+```
+**Context**: Working on specific feature within client project
+**Result**: Timer starts with project and task association
+</CodeGroup>
+
+### Internal Work Examples
+
+<CodeGroup>
+```bash Internal Development
+/timetracker start project:"Internal Tools" description:"API development"
+```
+**Context**: Working on internal company tools
+**Result**: Timer starts for internal project
+
+```bash Log Internal Time
+/timetracker log 4.0 project:"Internal Tools" task:"Database Optimization" description:"Performance improvements"
+```
+**Context**: Logging time on internal infrastructure work
+**Result**: Time logged with detailed categorization
+</CodeGroup>
+
+---
+
+## Meeting and Collaboration
+
+### Meeting Time Tracking
+
+<CodeGroup>
+```bash Team Meeting
+/timetracker start description:"Daily standup meeting"
+```
+**Context**: Starting a team meeting
+**Result**: Timer tracks meeting duration
+
+```bash Client Meeting
+/timetracker start project:"ACME Corp Website" description:"Requirements discussion"
+```
+**Context**: Client meeting about project requirements
+**Result**: Meeting time associated with client project
+
+```bash Log Meeting Time
+/timetracker log 1.0 project:"ACME Corp Website" description:"Client requirements meeting" tags:"meeting,planning"
+```
+**Context**: Logging time for completed meeting
+**Result**: Meeting time logged with appropriate tags
+</CodeGroup>
+
+### Collaboration Examples
+
+<CodeGroup>
+```bash Code Review
+/timetracker start project:"Internal Tools" task:"Code Review" description:"Reviewing pull requests"
+```
+**Context**: Time spent reviewing team code
+**Result**: Timer tracks code review time
+
+```bash Pair Programming
+/timetracker start project:"E-commerce Platform" task:"Checkout" description:"Pair programming session"
+```
+**Context**: Collaborative coding session
+**Result**: Time tracked for specific feature work
+</CodeGroup>
+
+---
+
+## Development Workflows
+
+### Feature Development
+
+<CodeGroup>
+```bash Start Feature Work
+/timetracker start project:"E-commerce Platform" task:"User Authentication" description:"Implementing OAuth"
+```
+**Context**: Beginning work on new feature
+**Result**: Timer starts with detailed project/task context
+
+```bash Log Development Time
+/timetracker log 6.0 project:"E-commerce Platform" task:"User Authentication" description:"OAuth implementation and testing" tags:"development,backend"
+```
+**Context**: Logging full day of development work
+**Result**: Comprehensive time entry with all details
+</CodeGroup>
+
+### Bug Fixes
+
+<CodeGroup>
+```bash Start Bug Fix
+/timetracker start project:"Client Website" task:"Bug Fixes" description:"Fixing responsive layout issues"
+```
+**Context**: Starting work on bug fixes
+**Result**: Timer tracks bug fix time
+
+```bash Log Bug Fix Time
+/timetracker log 2.5 project:"Client Website" task:"Bug Fixes" description:"Fixed mobile navigation menu" tags:"bugfix,frontend,urgent"
+```
+**Context**: Logging time spent fixing specific bug
+**Result**: Bug fix time logged with priority tags
+</CodeGroup>
+
+---
+
+## Advanced Usage Scenarios
+
+### Complex Project Tracking
+
+<CodeGroup>
+```bash Full Parameter Start
+/timetracker start project:"Marketing Campaign" task:"Social Media" description:"Instagram campaign planning" tags:"urgent,social,planning"
+```
+**Context**: Starting complex marketing work
+**Result**: Timer with complete project context
+
+```bash Full Parameter Log
+/timetracker log 4.5 project:"Development" task:"Backend" description:"API optimization and performance testing" tags:"performance,backend,optimization"
+```
+**Context**: Logging comprehensive development work
+**Result**: Detailed time entry with full context
+</CodeGroup>
+
+### Multi-Project Day
+
+<CodeGroup>
+```bash Morning Client Work
+/timetracker start project:"ACME Corp" description:"Morning client work"
+```
+**Context**: Starting day with client project
+**Result**: Timer for client work
+
+```bash Afternoon Internal Work
+/timetracker start project:"Internal Tools" description:"Afternoon internal development"
+```
+**Context**: Switching to internal work
+**Result**: New timer for different project
+
+```bash Log Retrospective Time
+/timetracker log 1.0 project:"Internal Tools" description:"Weekly retrospective meeting" tags:"meeting,retrospective"
+```
+**Context**: Logging meeting time at end of day
+**Result**: Meeting time properly categorized
+</CodeGroup>
+
+---
+
+## Real-World Workflows
+
+### Daily Routine Example
+
+**Morning Setup:**
+```bash
+/timetracker start project:"ACME Corp Website" description:"Daily client work"
+```
+
+**Lunch Break:**
+```bash
+/timetracker stop
+```
+
+**Afternoon Work:**
+```bash
+/timetracker start project:"Internal Tools" description:"Internal development"
+```
+
+**End of Day:**
+```bash
+/timetracker stop
+/timetracker status
+```
+
+### Weekly Planning Example
+
+**Monday - Project Planning:**
+```bash
+/timetracker start project:"ACME Corp Website" task:"Planning" description:"Sprint planning and requirements"
+```
+
+**Tuesday - Development:**
+```bash
+/timetracker start project:"ACME Corp Website" task:"Development" description:"Feature implementation"
+```
+
+**Wednesday - Testing:**
+```bash
+/timetracker start project:"ACME Corp Website" task:"Testing" description:"QA and bug fixes"
+```
+
+**Thursday - Client Communication:**
+```bash
+/timetracker start project:"ACME Corp Website" task:"Communication" description:"Client updates and feedback"
+```
+
+**Friday - Documentation:**
+```bash
+/timetracker start project:"ACME Corp Website" task:"Documentation" description:"Project documentation and handoff"
+```
+
+### Emergency Response Example
+
+**Urgent Bug Report:**
+```bash
+/timetracker start project:"Production System" task:"Emergency Fix" description:"Critical bug in payment system" tags:"urgent,production,bugfix"
+```
+
+**After Fix:**
+```bash
+/timetracker stop
+/timetracker log 0.5 project:"Production System" task:"Emergency Fix" description:"Hotfix deployment and verification" tags:"urgent,deployment"
+```
+
+---
+
+## Best Practice Examples
+
+### Descriptive Commands
+
+<CodeGroup>
+```bash Good Description
+/timetracker start project:"Client Website" description:"Implementing user dashboard with real-time data"
+```
+**Why**: Clear, specific description of work being done
+
+```bash Poor Description
+/timetracker start description:"Working"
+```
+**Why**: Too vague, not helpful for reporting
+</CodeGroup>
+
+### Proper Project Organization
+
+<CodeGroup>
+```bash Well-Organized
+/timetracker start project:"ACME Corp Website" task:"User Dashboard" description:"Adding data visualization components"
+```
+**Why**: Clear hierarchy: Project → Task → Description
+
+```bash Disorganized
+/timetracker start description:"ACME Corp Website User Dashboard data visualization"
+```
+**Why**: Everything mixed in description, harder to filter and report
+</CodeGroup>
+
+### Effective Tag Usage
+
+<CodeGroup>
+```bash Good Tags
+/timetracker log 3.0 project:"Development" description:"API optimization" tags:"performance,backend,optimization"
+```
+**Why**: Tags help filter and categorize work types
+
+```bash Poor Tags
+/timetracker log 3.0 project:"Development" description:"API optimization" tags:"work,stuff,things"
+```
+**Why**: Tags are too generic and not useful for analysis
+</CodeGroup>
+
+---
+
+## Common Patterns
+
+### Quick Time Logging
+
+For retrospective time logging at the end of the day:
+
+```bash
+# Morning work
+/timetracker log 2.0 project:"Client A" description:"Morning development work"
+
+# Meeting
+/timetracker log 1.0 project:"Client A" description:"Requirements meeting" tags:"meeting"
+
+# Afternoon work
+/timetracker log 3.5 project:"Client A" description:"Afternoon development and testing"
+```
+
+### Project Switching
+
+When switching between projects during the day:
+
+```bash
+# Stop current timer
+/timetracker stop
+
+# Start new project
+/timetracker start project:"Client B" description:"Switching to new project work"
+```
+
+### Status Checking
+
+Regular status checks to stay aware of time:
+
+```bash
+# Check current status
+/timetracker status
+
+# See recent entries and current timer
+```
+
+---
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Commands Reference" icon="book" href="/integrations/slack/commands">
+    Complete reference for all available commands and parameters.
+  </Card>
+
+  <Card title="Interactive Features" icon="mouse-pointer" href="/integrations/slack/features">
+    Learn about buttons, modals, and other interactive elements.
+  </Card>
+
+  <Card title="Best Practices" icon="lightbulb" href="/integrations/slack/troubleshooting">
+    Tips for effective time tracking and troubleshooting common issues.
+  </Card>
+</CardGroup>

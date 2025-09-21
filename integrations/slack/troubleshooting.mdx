@@ -1,0 +1,450 @@
+---
+title: "Best Practices & Troubleshooting"
+description: "Tips for effective time tracking, common issues, and solutions for Slack integration problems"
+---
+
+## Overview
+
+This guide covers best practices for effective time tracking with Slack, common issues you might encounter, and step-by-step solutions to resolve them.
+
+---
+
+## Best Practices
+
+### Effective Time Tracking Habits
+
+#### Use Descriptive Commands
+
+<CodeGroup>
+```bash ✅ Good - Specific and Clear
+/timetracker start project:"ACME Corp Website" task:"User Dashboard" description:"Implementing real-time data visualization"
+```
+
+```bash ❌ Poor - Too Vague
+/timetracker start description:"Working"
+```
+</CodeGroup>
+
+**Why descriptive commands matter:**
+- Better reporting and analysis
+- Easier to understand what was worked on
+- More accurate project time allocation
+- Helpful for client billing and project management
+
+#### Organize with Projects and Tasks
+
+<CodeGroup>
+```bash ✅ Good - Well Organized
+/timetracker start project:"Client Website" task:"Homepage" description:"Responsive design implementation"
+```
+
+```bash ❌ Poor - Everything in Description
+/timetracker start description:"Client Website Homepage responsive design implementation"
+```
+</CodeGroup>
+
+**Benefits of proper organization:**
+- **Projects**: Group related work by client, department, or initiative
+- **Tasks**: Break down projects into specific work items
+- **Hierarchy**: Clear structure for filtering and reporting
+- **Consistency**: Standardized naming across your team
+
+#### Use Tags Effectively
+
+<CodeGroup>
+```bash ✅ Good - Meaningful Tags
+/timetracker log 3.0 project:"Development" description:"API optimization" tags:"performance,backend,optimization"
+```
+
+```bash ❌ Poor - Generic Tags
+/timetracker log 3.0 project:"Development" description:"API optimization" tags:"work,stuff,things"
+```
+</CodeGroup>
+
+**Effective tag categories:**
+- **Priority**: `urgent`, `high`, `low`
+- **Type**: `meeting`, `development`, `design`, `research`
+- **Technology**: `frontend`, `backend`, `mobile`, `api`
+- **Status**: `bugfix`, `feature`, `maintenance`
+
+#### Regular Status Checks
+
+**Make it a habit:**
+```bash
+# Check your status regularly
+/timetracker status
+
+# Review your time at the end of each day
+/timetracker status
+```
+
+**Benefits:**
+- Stay aware of running timers
+- Catch forgotten timers early
+- Review daily time allocation
+- Ensure accurate time tracking
+
+### Project Management Best Practices
+
+#### Consistent Project Naming
+
+**Good naming conventions:**
+- **Client projects**: "Client Name - Project Type" (e.g., "ACME Corp - Website")
+- **Internal projects**: "Internal - Department" (e.g., "Internal - Marketing")
+- **Department work**: "Department - Initiative" (e.g., "Engineering - Infrastructure")
+
+**Avoid:**
+- Inconsistent capitalization
+- Abbreviations that aren't clear
+- Generic names like "Project 1" or "Work"
+
+#### Task Organization
+
+**Effective task structure:**
+- **Feature-based**: "User Authentication", "Payment Processing"
+- **Phase-based**: "Planning", "Development", "Testing", "Deployment"
+- **Deliverable-based**: "User Research", "Code Review", "Documentation"
+
+#### Time Entry Accuracy
+
+**Tips for accurate time tracking:**
+- Start timers when you begin work
+- Stop timers when you finish or switch tasks
+- Use the log command for retrospective entries
+- Be honest about time spent on different activities
+
+---
+
+## Common Issues and Solutions
+
+### Command Not Working
+
+<AccordionGroup>
+<Accordion title="Commands don't respond or show errors">
+**Problem**: `/timetracker` commands don't work or show error messages
+
+**Possible Causes:**
+- Slack app not installed in workspace
+- User account not properly mapped
+- Network connectivity issues
+- Slack app permissions problems
+
+**Solutions:**
+1. **Verify Slack app installation:**
+   - Check if Timetracker app is installed in your Slack workspace
+   - Ask workspace admin to install if missing
+
+2. **Test basic connection:**
+   ```bash
+   /timetracker help
+   ```
+
+3. **Check user mapping:**
+   - Go to Settings → Integrations → Slack → Configure
+   - Verify your Slack user is mapped to your Timetracker account
+
+4. **Re-sync user mapping:**
+   - Click "Sync Users" in the Slack configuration page
+   - Re-map your account if needed
+
+5. **Contact support:**
+   - If issues persist, contact support@timetracker.in
+</Accordion>
+
+<Accordion title="Commands work but time isn't tracked">
+**Problem**: Commands execute successfully but time entries don't appear in Timetracker
+
+**Possible Causes:**
+- User mapping issues
+- Wrong Timetracker account
+- Workspace configuration problems
+
+**Solutions:**
+1. **Verify user mapping:**
+   - Go to Settings → Integrations → Slack → Configure
+   - Check that your Slack user is mapped to the correct Timetracker account
+   - Look for your Slack username in "Currently Mapped Users"
+
+2. **Check Timetracker account:**
+   - Verify you're logged into the correct Timetracker account
+   - Check if time entries appear in the correct workspace
+
+3. **Re-sync mapping:**
+   - Unmap and re-map your Slack user
+   - Use "Sync Users" to refresh the mapping
+
+4. **Test with simple command:**
+   ```bash
+   /timetracker start description:"Test entry"
+   /timetracker stop
+   ```
+   Then check your Timetracker dashboard for the entry
+</Accordion>
+</AccordionGroup>
+
+### User Mapping Issues
+
+<AccordionGroup>
+<Accordion title="Can't find my Slack user in mapping list">
+**Problem**: Your Slack username doesn't appear in the unmapped users list
+
+**Solutions:**
+1. **Sync users:**
+   - Click "Sync Users" button in Slack configuration
+   - Wait for the sync to complete
+   - Refresh the page
+
+2. **Check Slack workspace:**
+   - Verify you're using the correct Slack workspace
+   - Ensure the Timetracker app is installed in the right workspace
+
+3. **Check Slack username:**
+   - Verify your Slack username in Slack settings
+   - Look for variations (display name vs username)
+
+4. **Contact admin:**
+   - Ask workspace admin to check app installation
+   - Verify app permissions and user access
+</Accordion>
+
+<Accordion title="Can't find my Timetracker account in mapping list">
+**Problem**: Your Timetracker account doesn't appear in the team members list
+
+**Solutions:**
+1. **Check workspace membership:**
+   - Verify you're a member of the correct Timetracker workspace
+   - Check with workspace admin if you should have access
+
+2. **Verify account status:**
+   - Ensure your Timetracker account is active
+   - Check if you have the correct permissions
+
+3. **Check email address:**
+   - Verify the email address matches between Slack and Timetracker
+   - Update email if there's a mismatch
+
+4. **Contact support:**
+   - If account issues persist, contact support@timetracker.in
+</Accordion>
+</AccordionGroup>
+
+### Command Syntax Issues
+
+<AccordionGroup>
+<Accordion title="Invalid command format errors">
+**Problem**: Commands show "Invalid format" or syntax errors
+
+**Common Issues and Solutions:**
+
+**Log command format:**
+```bash
+# ❌ Wrong
+/timetracker log 2.5
+
+# ✅ Correct
+/timetracker log 2.5
+```
+
+**Parameter formatting:**
+```bash
+# ❌ Wrong - missing quotes
+/timetracker start project:Client Website
+
+# ✅ Correct - with quotes
+/timetracker start project:"Client Website"
+```
+
+**Task without project:**
+```bash
+# ❌ Wrong - task requires project
+/timetracker start task:"Homepage"
+
+# ✅ Correct - project required for task
+/timetracker start project:"Client Website" task:"Homepage"
+```
+</Accordion>
+
+<Accordion title="Project not found errors">
+**Problem**: Commands show "Project not found" error
+
+**Solutions:**
+1. **Check project name:**
+   - Verify exact spelling and capitalization
+   - Check for extra spaces or special characters
+
+2. **Create project first:**
+   - Go to Timetracker dashboard
+   - Create the project if it doesn't exist
+   - Use the exact name in Slack commands
+
+3. **Use existing projects:**
+   - Check your Timetracker dashboard for available projects
+   - Use the exact project names from the dashboard
+
+4. **Project naming tips:**
+   - Use consistent naming conventions
+   - Avoid special characters
+   - Keep names simple and clear
+</Accordion>
+</AccordionGroup>
+
+### Performance and Connectivity Issues
+
+<AccordionGroup>
+<Accordion title="Slow command responses">
+**Problem**: Commands take a long time to respond or timeout
+
+**Solutions:**
+1. **Check internet connection:**
+   - Verify stable internet connection
+   - Try commands from different network
+
+2. **Check Slack status:**
+   - Visit status.slack.com for Slack service issues
+   - Wait for Slack issues to resolve
+
+3. **Retry commands:**
+   - Commands may succeed on retry
+   - Wait a few minutes before retrying
+
+4. **Contact support:**
+   - If issues persist, contact support@timetracker.in
+</Accordion>
+
+<Accordion title="Commands work inconsistently">
+**Problem**: Commands work sometimes but not always
+
+**Solutions:**
+1. **Check user mapping:**
+   - Verify mapping is stable and correct
+   - Re-sync if mapping seems inconsistent
+
+2. **Check workspace permissions:**
+   - Ensure you have proper permissions in both Slack and Timetracker
+   - Ask admin to verify app permissions
+
+3. **Clear browser cache:**
+   - Clear browser cache and cookies
+   - Try from different browser or device
+
+4. **Check for conflicts:**
+   - Ensure no other apps are interfering
+   - Try commands in different Slack channels
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Advanced Troubleshooting
+
+### Workspace Configuration Issues
+
+#### Admin-Level Problems
+
+**App Installation Issues:**
+- Verify Timetracker app is properly installed
+- Check app permissions and scopes
+- Ensure all required permissions are granted
+
+**User Access Issues:**
+- Verify users have access to the app
+- Check workspace member permissions
+- Ensure proper user roles and access levels
+
+#### Multi-Workspace Issues
+
+**Multiple Slack Workspaces:**
+- Ensure you're using the correct workspace
+- Check which workspace has the Timetracker app installed
+- Verify user mapping in the correct workspace
+
+**Multiple Timetracker Workspaces:**
+- Confirm you're mapped to the correct Timetracker workspace
+- Check workspace settings and permissions
+- Verify team member status in the correct workspace
+
+### Data Synchronization Issues
+
+#### Time Entry Problems
+
+**Missing Time Entries:**
+1. Check user mapping accuracy
+2. Verify Timetracker account access
+3. Check for time entry filters in dashboard
+4. Contact support if entries are completely missing
+
+**Duplicate Time Entries:**
+1. Check for multiple user mappings
+2. Verify single Timetracker account per Slack user
+3. Review recent command history
+4. Contact support for data cleanup if needed
+
+#### Project and Task Issues
+
+**Missing Projects:**
+1. Verify project exists in Timetracker
+2. Check project permissions and access
+3. Ensure project name matches exactly
+4. Create project if it doesn't exist
+
+**Task Association Problems:**
+1. Verify task exists within the project
+2. Check task permissions and access
+3. Ensure proper project-task relationship
+4. Create task if it doesn't exist
+
+---
+
+## Getting Help
+
+### Self-Service Resources
+
+**Documentation:**
+- [Commands Reference](/integrations/slack/commands) - Complete command documentation
+- [Command Examples](/integrations/slack/examples) - Practical usage examples
+- [Interactive Features](/integrations/slack/features) - UI elements and interactions
+
+**Built-in Help:**
+```bash
+/timetracker help
+```
+
+### Contact Support
+
+**When to contact support:**
+- User mapping issues that persist after troubleshooting
+- App installation or permission problems
+- Data synchronization issues
+- Commands that consistently fail
+- Any issues not covered in this guide
+
+**How to contact support:**
+- Email: support@timetracker.in
+- Include your Slack workspace name
+- Include your Timetracker account email
+- Describe the specific issue and steps you've tried
+
+**Information to include:**
+- Slack workspace name
+- Timetracker account email
+- Specific error messages
+- Steps to reproduce the issue
+- Screenshots if helpful
+
+---
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Commands Reference" icon="book" href="/integrations/slack/commands">
+    Complete reference for all available commands and parameters.
+  </Card>
+
+  <Card title="Command Examples" icon="code" href="/integrations/slack/examples">
+    See practical examples and real-world usage scenarios.
+  </Card>
+
+  <Card title="Interactive Features" icon="mouse-pointer" href="/integrations/slack/features">
+    Learn about buttons, modals, and other interactive elements.
+  </Card>
+</CardGroup>
